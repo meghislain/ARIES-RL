@@ -1,0 +1,71 @@
+from stable_baselines3 import HerReplayBuffer, DDPG, DQN, SAC, TD3, PPO
+import sys
+import torch as th
+from ARIES.evaluation import *
+from ARIES.network import Custom_CombinedExtractor, Custom_CNN
+from ARIES.learning_rate import linear_schedule, stair_schedule
+from ARIES.parser import parameters
+
+import os
+import wandb
+import logging
+
+import numpy as np
+from ARIES.Env_incertitude import TumorEnv
+
+
+saving_path = "/linux/meghislain/Results-RL/"
+wandb.init(project="2DBilly", entity="super_aries")
+
+# Instantiate the env
+name = parameters.date +"_DQ" +str(parameters.dq) +"_tarSize"+str(parameters.ts)+"_SL" + str(parameters.sl)#"12_06_8X8_carre3X3_MOVING_DOSE1_L75"#"32X32_CARRE5X5"#"MOVING_CARRE3X3_K3:3:3"
+num_col = 3 + (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 15 #random noise on tumor position
+num_row = 3 + (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 15 #random noise on tumor position
+
+if parameters.form == "square":
+        number_pixel_to_touch = ((2*parameters.ts) + 1)**2 
+if parameters.form == "circle":
+        number_pixel_to_touch = (((2*(parameters.ts-1))+1)**2)+4 # CIRCLE
+
+n_value = []
+n_cpu_cores = 1
+th.set_num_threads(n_cpu_cores)
+wandb.run.name = name
+
+
+env = TumorEnv(n_test_episode=parameters.n_test, n_train_episode=parameters.n_train, signal_length = parameters.sl, saving_path = saving_path, name = name, save_gif = parameters.savgif, target_size=parameters.ts, dose_quantity=parameters.dq, num_col=num_col, num_row=num_row, moving = parameters.mov, amplitude = parameters.ampl, form = parameters.form, frequency=parameters.freq, le=parameters.gk, inc = parameters.inc)
+env_eval = TumorEnv(mode=0, n_test_episode=parameters.n_test, n_train_episode=parameters.n_train, signal_length = parameters.sl, saving_path = saving_path, name = name, save_gif = parameters.savgif, target_size=parameters.ts, dose_quantity=parameters.dq, num_col=num_col, num_row=num_row, moving = parameters.mov, amplitude = parameters.ampl, form = parameters.form, frequency=parameters.freq, le=parameters.gk, inc = parameters.inc)
+
+policy_kwargs = dict(activation_fn=th.nn.ReLU, net_arch=[128, 64, 32], normalize_images=False, features_extractor_class=Custom_CombinedExtractor)
+#model = DQN.load(sav + "/Model/test_moving", env, device="cuda:1")
+model = DQN("MultiInputPolicy", env, verbose=0, learning_rate=parameters.lr, batch_size=16, device=parameters.dev, policy_kwargs=policy_kwargs, exploration_fraction=0.8, exploration_initial_eps=parameters.eps, exploration_final_eps=0.3, target_update_interval=parameters.sl)
+TIMESTEPS = parameters.sl*parameters.n_train
+print(model.policy)
+for i in range(parameters.n_epoch):
+        print("epoch number : ", str(i))
+        # if i > (int(n_epoch/2)):
+        #         model.learning_rate = stair_schedule(initial_lr, int(n_epoch/2), i-int(n_epoch/2))
+        #stair_schedule(initial_lr, n_epoch, i)
+
+        model.learn(total_timesteps=TIMESTEPS)
+        # mean_reward, std_reward, time, DM, DM_PTV, d_meanPTV, d_meanOAR, d_meanAutour, D98_PTV, D80_PTV, D30_OAR, mini = evaluate(model, env_eval, n_eval_episodes=n_test_episodes)
+        mean_reward, std_reward, time, DM, DM_PTV, d_meanPTV, d_meanOAR, d_meanAutour, D98_PTV, D80_PTV, D30_OAR, mini, D98_PTV_treat, D80_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM = evaluate_over_treatment_daily(model, env_eval, n_eval_episodes=parameters.n_test, epoch=i)
+        wandb.log({"mean reward": mean_reward/(5*2*number_pixel_to_touch), "standard deviation of the reward": std_reward, "treatment time": time, "learning rate": model.learning_rate, "Difference of final DM": DM, "Difference on PTV": DM_PTV, "Dose moyenne PTV" : d_meanPTV, "Dose moyenne OAR":d_meanOAR, "Dose moyenne Autour":d_meanAutour, "D98 PTV":D98_PTV, "D30 OAR":D30_OAR, "minimum PTV" : mini, "D98_PTV_treat " : D98_PTV_treat, "D80_PTV_treat " : D80_PTV_treat, "D30_OAR_treat ": D30_OAR_treat, "mean_OAR_treat ": mean_OAR_treat})
+        if (D80_PTV_treat >= (0.75*2*parameters.n_test)) and (D80_PTV_treat <=  (1.2*2*parameters.n_test)):
+            if mean_OAR_treat <= 1.0 :
+                _ = plot_treatment(env_eval,n_eval_episodes=parameters.n_test, D98_PTV_treat=D98_PTV_treat, D80_PTV_treat=D80_PTV_treat, D30_OAR_treat=D30_OAR_treat, mean_OAR_treat=mean_OAR_treat, Accum_DM=Accum_DM, epoch=i)
+        if i % 25 == 0 :
+                _ = plot_treatment(env_eval,n_eval_episodes=parameters.n_test, D98_PTV_treat=D98_PTV_treat, D80_PTV_treat=D80_PTV_treat, D30_OAR_treat=D30_OAR_treat, mean_OAR_treat=mean_OAR_treat, Accum_DM=Accum_DM, epoch=i)
+        model.learning_rate = model.learning_rate*parameters.fct
+        # if i % 50 == 0 :
+        #        model.save(sav + "/Model/" + name)
+
+        # if n == patience :
+        #         print("Early stopping at epoch ", i)
+        #         print(n_value)
+        #         if save_gif == True :
+        #                 env_eval.render()
+        #         model.save(sav + "/Model/" + name)
+        #         break
+#mean_reward, std_reward, time, DM, d_meanPTV, d_meanOAR, d_meanAutour, D98_PTV, D80_PTV, D30_OAR = evaluate_over_treatment(model, env_eval, n_eval_episodes=30, epoch=i)
+wandb.finish()

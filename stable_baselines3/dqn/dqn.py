@@ -105,6 +105,7 @@ class DQN(OffPolicyAlgorithm):
             policy,
             env,
             learning_rate,
+            env,
             buffer_size,
             learning_starts,
             batch_size,

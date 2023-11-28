@@ -82,6 +82,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
         policy: Union[str, Type[BasePolicy]],
         env: Union[GymEnv, str],
         learning_rate: Union[float, Schedule],
+        tumor: Union[GymEnv, str],
         buffer_size: int = 1_000_000,  # 1e6
         learning_starts: int = 100,
         batch_size: int = 256,
@@ -135,6 +136,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
         self.replay_buffer_class = replay_buffer_class
         self.replay_buffer_kwargs = replay_buffer_kwargs or {}
         self._episode_storage = None
+        self.tumor = tumor
 
         # Save train freq parameter, will be converted later to TrainFreq object
         self.train_freq = train_freq
@@ -559,7 +561,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
             # Rescale and perform action
             new_obs, rewards, dones, infos = env.step(actions)
 
-            self.num_timesteps += env.num_envs
+            #self.num_timesteps += env.num_envs
             num_collected_steps += 1
 
             # Give access to local variables
@@ -584,10 +586,15 @@ class OffPolicyAlgorithm(BaseAlgorithm):
 
             for idx, done in enumerate(dones):
                 if done:
+                    self.num_timesteps += self.tumor.SignalLength
+                    #print(self.num_timesteps)
+                    #wandb.log({"reward_training": rew})
+                    num_collected_steps = train_freq.frequency
+                    num_collected_episodes = train_freq.frequency
                     # Update stats
                     num_collected_episodes += 1
                     self._episode_num += 1
-
+                    #rew = 0
                     if action_noise is not None:
                         kwargs = dict(indices=[idx]) if env.num_envs > 1 else {}
                         action_noise.reset(**kwargs)
