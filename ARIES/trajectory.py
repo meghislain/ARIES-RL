@@ -2,7 +2,7 @@ import numpy as np
 import os
 import sys
 import matplotlib.pyplot as plt
-from parser import parameters
+from ARIES.parser import parameters
 
 
 

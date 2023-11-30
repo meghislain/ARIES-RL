@@ -6,7 +6,7 @@ import sys
 import random
 import numpy as np
 from gym import spaces
-from skimage.morphology import disk, square, ellipse
+from skimage.morphology import disk, square
 #from skimage.morphology import square
 import random
 import wandb
@@ -14,9 +14,9 @@ import scipy
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, ImageMagickWriter
 #from stable_baselines3.common.type_aliases import GymStepReturn
-from trajectory import create_signal_position, create_noisy_signal, create_breathing_signals, create_breathing_signals_reel
+from ARIES.trajectory import create_signal_position, create_noisy_signal, create_breathing_signals, create_breathing_signals_reel
 from scipy.interpolate import CubicSpline
-from dose_evaluation import compute_DVH, compute_DVH_OAR
+from ARIES.dose_evaluation import compute_DVH, compute_DVH_OAR
 from scipy.ndimage import gaussian_filter
 
 # Application d'un filtre gaussien
@@ -63,7 +63,7 @@ class TumorEnv(gym.Env):
         super().__init__()
 
         self.save_gif = save_gif
-        self.n_obs = 2
+        self.n_obs = 4
         self.saving_path = saving_path
         self.name = name
         self.moving = moving
@@ -92,25 +92,27 @@ class TumorEnv(gym.Env):
         else:
             self.action_space = spaces.Box(0, 1, (6,))
         self.l = [2,1]
-        if self.n_obs == 3 :
+        if self.n_obs == 3 : #observations = [Diff DM, Beam position, incertitude]
             self.img_size = [3, num_row, num_col]
+            self.doseMaps = np.zeros(self.img_size, dtype=np.float64)
             self.observation_space = spaces.Dict(
             spaces={
-                #"percentage_recovery": spaces.Box(0,1, [1,1], dtype=np.float64),
                 "doseMaps": spaces.Box(-1,1,self.img_size, dtype=np.float64)
             }
             )
-        if self.n_obs == 4 :
+        if self.n_obs == 4 : #observations = [Diff DM] et [Beam position, incertitude]
             self.img_size = [2, num_row, num_col]
+            self.doseMaps = np.zeros([1, num_row, num_col], dtype=np.float64)
+            self.incertitude = np.zeros(self.img_size, dtype=np.float64)
             self.observation_space = spaces.Dict(
             spaces={
-                #"percentage_recovery": spaces.Box(0,1, [1,1], dtype=np.float64),
                 "doseMaps": spaces.Box(-1,1,[1, num_row, num_col], dtype=np.float64),
                 "incert" : spaces.Box(-1,1,self.img_size, dtype=np.float64) #[1,num_row, num_col]
             }
             )   
-        if self.n_obs == 2 :
+        if self.n_obs == 2 : #observations = [Diff DM, incertitude] et Beam position en array
             self.img_size = [2, num_row, num_col]
+            self.doseMaps = np.zeros(self.img_size, dtype=np.float64)
             self.observation_space = spaces.Dict(
             spaces={
                 "beam position": spaces.Box(0,1, [2,1], dtype=np.float64),
@@ -125,8 +127,6 @@ class TumorEnv(gym.Env):
         self.perfect_DM = np.zeros((num_row, num_col), dtype=np.float64)
         self.DM_i = np.zeros((num_row, num_col), dtype=np.float64)
         self.DM_i_noisy = np.zeros((num_row, num_col), dtype=np.float64)
-        self.doseMaps = np.zeros([1, num_row, num_col], dtype=np.float64)
-        self.incertitude = np.zeros(self.img_size, dtype=np.float64)
         self.targetSize = target_size
         self.PTV = self.observeEnvAs2DImage_plain(pos = self.ref_position, dose_q=1, targetSize = self.targetSize, form = self.form)
         self.mask = self.observeEnvAs2DImage_plain(pos = self.ref_position, dose_q=1, targetSize = self.targetSize+self.zone, form = self.form)
@@ -335,15 +335,6 @@ class TumorEnv(gym.Env):
         #reward_dose -= (self.weighted_abs_value(zone_OAR,5)+self.weighted_abs_value(zone_PTV,2))/(3*self.SignalLength)
         #reward_dose -= (self.weighted_abs_value(zone_OAR,5)+np.sum(zone_PTV**2))/(3*self.SignalLength)
         self.done = bool(self.curTimeStep >= self.SignalLength)
-        # if self.done == True :
-        #     plt.figure()
-        #     plt.subplot(2,1,1)
-        #     plt.plot(self._signal_position[:,0], label="real")
-        #     plt.plot(self.noisy_pos[:,0], label="noisy")
-        #     plt.subplot(2,1,2)
-        #     plt.plot(self._signal_position[:,1])
-        #     plt.plot(self.noisy_pos[:,1])
-        #     plt.show()
 
        
         reward = reward_distance + reward_dose  

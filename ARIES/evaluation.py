@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
 from matplotlib.collections import LineCollection
-from dose_evaluation import *
+from ARIES.dose_evaluation import *
 from scipy.ndimage import gaussian_filter
 
 

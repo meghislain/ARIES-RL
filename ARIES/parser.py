@@ -3,7 +3,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--mov', "-mov", dest='mov', default=True, type=bool, help='Specify if Moving target or not')
 parser.add_argument('--ampl', "-ampl", dest='ampl', default=4, type=int, help='moving amplitude in pixels')
-parser.add_argument('--dq', "-dq", dest='dq', default=2.2, type=float, help='basic dose quantity')
+parser.add_argument('--dq', "-dq", dest='dq', default=2, type=float, help='basic dose quantity')
 parser.add_argument('--date', "-date", dest='date', default="27_10", type=str, help='name of png images')
 parser.add_argument('--ts', "-ts", dest='ts', default=5, type=int, help='target size')
 parser.add_argument('--sl', "-sl", dest='sl', default=900, type=int, help='signal length')
