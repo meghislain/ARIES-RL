@@ -206,6 +206,7 @@ class TumorEnv(gym.Env):
         
 
     def step(self, action):
+        #print(self.curTimeStep)
         self.observation = []
         self._tumor_position = self._signal_position[self.curTimeStep]
         #self._tumor_position #+ [random.choice(array_ran),random.choice(array_ran)]#+ np.random.normal(0,0,2)
@@ -323,14 +324,13 @@ class TumorEnv(gym.Env):
         #rew = np.where(zone_autour>=2, ((zone_autour-2)**2), 0)
         #print(rew[rew!=0])
         #reward_dose -= 3*np.sum((np.abs(self.perfectDM_inref-self.DMi_inRef))/self.SignalLength)
-        
+        # print(self.perfect_DM)
+        # print(self.perfect_DM[self.perfect_DM!=0])
         #reward_dose -= 5*np.sum((zone_PTV)**2)/self.SignalLength
         reward_dose -= 5*np.sum((np.abs(self.perfect_DM-self.DM_i))**2)/self.SignalLength
+        #print(reward_dose)
         # reward_dose -= 5*np.sum((np.abs(self.perfect_DM-self.DM_i)*zone_PTV_OAR)**2)/self.SignalLength
         # reward_dose -= 5*np.sum(rew)/self.SignalLength 
-        #reward_dose -= 3*self.weighted_squared_abs_value(self.perfect_DM-self.DM_i,2)/self.SignalLength
-        #reward_dose -= 3*self.weighted_abs_value(zone_PTV, 3)/self.SignalLength
-        #reward_dose -= self.weighted_zone(self.perfect_DM-self.DM_i, self.autour_tumeur, self.perfect_DM, self.perfect_DM_ag, 5)/self.SignalLength
         
         #reward_dose -= (self.weighted_abs_value(zone_OAR,5)+self.weighted_abs_value(zone_PTV,2))/(3*self.SignalLength)
         #reward_dose -= (self.weighted_abs_value(zone_OAR,5)+np.sum(zone_PTV**2))/(3*self.SignalLength)
@@ -405,7 +405,7 @@ class TumorEnv(gym.Env):
             self._tumor_position = self._signal_position[self.curTimeStep]
             self.noisy_signal_position = self._signal_position #+ create_noisy_signal(self.moving, self.SignalLength, self.frequency)
             self.noisy_tumor_position = self.noisy_signal_position[self.curTimeStep]
-            #print('training mode : ', self.n_training, self._tumor_position)
+            print('training mode : ', self.n_training, self._tumor_position)
             self.count_training += 1
             self.n_training += 1
             self.sum_reward = 0
@@ -440,7 +440,7 @@ class TumorEnv(gym.Env):
             self._tumor_position = self._signal_position[self.curTimeStep]
             self.noisy_signal_position = self._signal_position #+ create_noisy_signal(self.moving, self.SignalLength, self.frequency)
             self.noisy_tumor_position = self.noisy_signal_position[self.curTimeStep]
-            #print('validation mode : ' + str(self.count_validation), self._tumor_position)
+            print('validation mode : ' + str(self.count_validation), self._tumor_position)
             self.count_validation += 1
             self.n_validation += 1
         self.noisy_perfect_DM = self.observeEnvAs2DImage(pos = self.noisy_tumor_position, dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)

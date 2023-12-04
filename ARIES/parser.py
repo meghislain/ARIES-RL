@@ -9,7 +9,7 @@ parser.add_argument('--ts', "-ts", dest='ts', default=5, type=int, help='target 
 parser.add_argument('--sl', "-sl", dest='sl', default=900, type=int, help='signal length')
 parser.add_argument('--freq', "-freq", dest='freq', default=10, type=int, help='moving/measure frequency')
 parser.add_argument('--lr', "-lr", dest='lr', default=0.0001, type=float, help='learning rate')
-parser.add_argument('--gk', "-gk", dest='gk', default=2, type=int, help='gaussian kernel size')
+parser.add_argument('--gk', "-gk", dest='gk', default=1, type=int, help='gaussian kernel size')
 parser.add_argument('--n_test', "-n_test", dest='n_test', default=30, type=int, help='number of testing episode/epoch')
 parser.add_argument('--n_epoch', "-n_epoch", dest='n_epoch', default=260, type=int, help='number of epoch')
 parser.add_argument('--eps', "-eps", dest='eps', default=0.7, type=float, help='epsilon parameter')

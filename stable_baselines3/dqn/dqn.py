@@ -78,8 +78,8 @@ class DQN(OffPolicyAlgorithm):
         policy: Union[str, Type[DQNPolicy]],
         env: Union[GymEnv, str],
         learning_rate: Union[float, Schedule] = 1e-4,
-        buffer_size: int = 1_000_000,  # 1e6
-        learning_starts: int = 50000,
+        buffer_size: int = 100_000,  # 1e6
+        learning_starts: int = 100,
         batch_size: int = 32,
         tau: float = 1.0,
         gamma: float = 0.99,
@@ -88,12 +88,12 @@ class DQN(OffPolicyAlgorithm):
         replay_buffer_class: Optional[Type[ReplayBuffer]] = None,
         replay_buffer_kwargs: Optional[Dict[str, Any]] = None,
         optimize_memory_usage: bool = False,
-        target_update_interval: int = 10000,
+        target_update_interval: int = 1000, #10000
         exploration_fraction: float = 0.1,
         exploration_initial_eps: float = 1.0,
         exploration_final_eps: float = 0.05,
         max_grad_norm: float = 10,
-        stats_window_size: int = 100,
+        stats_window_size: int = 0,
         tensorboard_log: Optional[str] = None,
         policy_kwargs: Optional[Dict[str, Any]] = None,
         verbose: int = 0,

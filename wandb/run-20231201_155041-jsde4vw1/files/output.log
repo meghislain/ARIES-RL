@@ -1,0 +1,801 @@
+[[0.01917244 0.1001197  0.01917244]
+ [0.1001197  0.52283142 0.1001197 ]
+ [0.01917244 0.1001197  0.01917244]]
+ training :  [[18.03702973 18.55778204]
+ [21.17604524 19.47266133]
+ [15.84883918 18.13400917]
+ [15.05102631 17.95544908]
+ [23.03840192 20.19960726]
+ [16.56709618 18.22748071]
+ [19.14214079 19.09880819]
+ [19.47763912 19.33012168]
+ [17.64394264 18.68479602]
+ [18.89992928 19.03033539]
+ [22.29695094 19.91076   ]
+ [15.17107573 17.80713304]
+ [15.90480303 18.06415118]
+ [20.34625783 19.41121148]
+ [15.92961701 18.07392523]
+ [22.99224148 20.26448585]
+ [17.32428733 18.48041447]
+ [22.90750433 20.272429  ]
+ [21.25553824 19.85241846]
+ [21.31871943 19.62388238]
+ [21.73116608 19.74043494]
+ [15.09977074 17.6105712 ]
+ [20.24870016 19.11887847]
+ [20.24413663 19.36090305]
+ [20.18447666 19.65301919]
+ [22.01238047 19.99036152]
+ [21.17139995 19.62692516]
+ [15.54617888 17.96684783]
+ [15.24837924 17.82650738]
+ [16.62798806 18.37783764]
+ [16.97433299 18.28907786]
+ [15.37551798 17.76708397]
+ [23.04181656 20.02283697]
+ [19.17463007 18.9624041 ]
+ [16.87707682 18.18702636]
+ [21.11808293 19.52892135]
+ [16.07300116 18.22250881]
+ [22.9435995  20.17829537]
+ [22.37994626 20.03659796]
+ [15.77922209 18.1603455 ]] 40
+ validation :  [[17.43120964 18.49816528]
+ [18.85347845 19.03044463]
+ [16.20586192 18.17613461]
+ [22.46649865 20.01737479]
+ [18.96711006 19.03458232]
+ [15.40867389 17.77321752]
+ [15.14274695 17.68666134]
+ [15.41194395 17.99208732]
+ [15.56230022 18.02634477]
+ [19.19441638 19.04971833]
+ [21.86633716 19.93785248]
+ [20.85440698 19.65558399]
+ [22.35991921 20.04673735]
+ [18.94446606 19.028039  ]
+ [22.19500449 20.06560825]
+ [17.57076763 18.61564112]
+ [22.39905158 20.00702348]
+ [22.43730158 20.05168295]
+ [21.46267803 19.87230549]
+ [17.24803727 18.35170906]
+ [15.30000344 17.95953353]
+ [15.06132851 17.70455648]
+ [15.11534719 17.92201106]
+ [21.74827251 19.86847371]
+ [17.07847402 18.51058874]
+ [21.70350629 19.78329408]
+ [20.65237884 19.24754669]
+ [20.82109216 19.66940225]
+ [17.76433677 18.64580894]
+ [19.2267984  18.93571766]] 30
+[[0.01917244 0.1001197  0.01917244]
+ [0.1001197  0.52283142 0.1001197 ]
+ [0.01917244 0.1001197  0.01917244]]
+ training :  [[18.03702973 18.55778204]
+ [21.17604524 19.47266133]
+ [15.84883918 18.13400917]
+ [15.05102631 17.95544908]
+ [23.03840192 20.19960726]
+ [16.56709618 18.22748071]
+ [19.14214079 19.09880819]
+ [19.47763912 19.33012168]
+ [17.64394264 18.68479602]
+ [18.89992928 19.03033539]
+ [22.29695094 19.91076   ]
+ [15.17107573 17.80713304]
+ [15.90480303 18.06415118]
+ [20.34625783 19.41121148]
+ [15.92961701 18.07392523]
+ [22.99224148 20.26448585]
+ [17.32428733 18.48041447]
+ [22.90750433 20.272429  ]
+ [21.25553824 19.85241846]
+ [21.31871943 19.62388238]
+ [21.73116608 19.74043494]
+ [15.09977074 17.6105712 ]
+ [20.24870016 19.11887847]
+ [20.24413663 19.36090305]
+ [20.18447666 19.65301919]
+ [22.01238047 19.99036152]
+ [21.17139995 19.62692516]
+ [15.54617888 17.96684783]
+ [15.24837924 17.82650738]
+ [16.62798806 18.37783764]
+ [16.97433299 18.28907786]
+ [15.37551798 17.76708397]
+ [23.04181656 20.02283697]
+ [19.17463007 18.9624041 ]
+ [16.87707682 18.18702636]
+ [21.11808293 19.52892135]
+ [16.07300116 18.22250881]
+ [22.9435995  20.17829537]
+ [22.37994626 20.03659796]
+ [15.77922209 18.1603455 ]] 40
+ validation :  [[17.43120964 18.49816528]
+ [18.85347845 19.03044463]
+ [16.20586192 18.17613461]
+ [22.46649865 20.01737479]
+ [18.96711006 19.03458232]
+ [15.40867389 17.77321752]
+ [15.14274695 17.68666134]
+ [15.41194395 17.99208732]
+ [15.56230022 18.02634477]
+ [19.19441638 19.04971833]
+ [21.86633716 19.93785248]
+ [20.85440698 19.65558399]
+ [22.35991921 20.04673735]
+ [18.94446606 19.028039  ]
+ [22.19500449 20.06560825]
+ [17.57076763 18.61564112]
+ [22.39905158 20.00702348]
+ [22.43730158 20.05168295]
+ [21.46267803 19.87230549]
+ [17.24803727 18.35170906]
+ [15.30000344 17.95953353]
+ [15.06132851 17.70455648]
+ [15.11534719 17.92201106]
+ [21.74827251 19.86847371]
+ [17.07847402 18.51058874]
+ [21.70350629 19.78329408]
+ [20.65237884 19.24754669]
+ [20.82109216 19.66940225]
+ [17.76433677 18.64580894]
+ [19.2267984  18.93571766]] 30
+doseMaps
+incert
+doseMaps
+incert
+MultiInputPolicy(
+  (q_net): QNetwork(
+    (features_extractor): Custom_CombinedExtractor(
+      (extractors): ModuleDict(
+        (doseMaps): Custom_CNN(
+          (cnn): Sequential(
+            (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1))
+            (1): ReLU()
+            (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+            (3): ReLU()
+            (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+            (5): ReLU()
+            (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+            (7): ReLU()
+            (8): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1))
+            (9): ReLU()
+            (10): Flatten(start_dim=1, end_dim=-1)
+          )
+          (linear): Sequential(
+            (0): Linear(in_features=100352, out_features=256, bias=True)
+            (1): ReLU()
+          )
+        )
+        (incert): Custom_CNN(
+          (cnn): Sequential(
+            (0): Conv2d(2, 16, kernel_size=(3, 3), stride=(1, 1))
+            (1): ReLU()
+            (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+            (3): ReLU()
+            (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+            (5): ReLU()
+            (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+            (7): ReLU()
+            (8): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1))
+            (9): ReLU()
+            (10): Flatten(start_dim=1, end_dim=-1)
+          )
+          (linear): Sequential(
+            (0): Linear(in_features=100352, out_features=256, bias=True)
+            (1): ReLU()
+          )
+        )
+      )
+    )
+    (q_net): Sequential(
+      (0): Linear(in_features=512, out_features=128, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ReLU()
+      (4): Linear(in_features=64, out_features=32, bias=True)
+      (5): ReLU()
+      (6): Linear(in_features=32, out_features=6, bias=True)
+    )
+  )
+  (q_net_target): QNetwork(
+    (features_extractor): Custom_CombinedExtractor(
+      (extractors): ModuleDict(
+        (doseMaps): Custom_CNN(
+          (cnn): Sequential(
+            (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1))
+            (1): ReLU()
+            (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+            (3): ReLU()
+            (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+            (5): ReLU()
+            (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+            (7): ReLU()
+            (8): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1))
+            (9): ReLU()
+            (10): Flatten(start_dim=1, end_dim=-1)
+          )
+          (linear): Sequential(
+            (0): Linear(in_features=100352, out_features=256, bias=True)
+            (1): ReLU()
+          )
+        )
+        (incert): Custom_CNN(
+          (cnn): Sequential(
+            (0): Conv2d(2, 16, kernel_size=(3, 3), stride=(1, 1))
+            (1): ReLU()
+            (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+            (3): ReLU()
+            (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+            (5): ReLU()
+            (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+            (7): ReLU()
+            (8): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1))
+            (9): ReLU()
+            (10): Flatten(start_dim=1, end_dim=-1)
+          )
+          (linear): Sequential(
+            (0): Linear(in_features=100352, out_features=256, bias=True)
+            (1): ReLU()
+          )
+        )
+      )
+    )
+    (q_net): Sequential(
+      (0): Linear(in_features=512, out_features=128, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ReLU()
+      (4): Linear(in_features=64, out_features=32, bias=True)
+      (5): ReLU()
+      (6): Linear(in_features=32, out_features=6, bias=True)
+    )
+  )
+)
+epoch number :  0
+training mode :  0 [16.62798806 18.37783764]
+training mode :  1 [22.9435995  20.17829537]
+training mode :  2 [22.37994626 20.03659796]
+/linux/meghislain/ARIES-RL/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+training mode :  3 [22.90750433 20.272429  ]
+training mode :  4 [15.92961701 18.07392523]
+training mode :  5 [19.14214079 19.09880819]
+training mode :  6 [18.03702973 18.55778204]
+training mode :  7 [16.56709618 18.22748071]
+training mode :  8 [21.17139995 19.62692516]
+training mode :  9 [17.32428733 18.48041447]
+training mode :  10 [15.24837924 17.82650738]
+training mode :  11 [15.77922209 18.1603455 ]
+training mode :  12 [15.54617888 17.96684783]
+training mode :  13 [15.84883918 18.13400917]
+training mode :  14 [21.73116608 19.74043494]
+training mode :  15 [21.25553824 19.85241846]
+training mode :  16 [20.24870016 19.11887847]
+training mode :  17 [19.17463007 18.9624041 ]
+training mode :  18 [15.09977074 17.6105712 ]
+training mode :  19 [15.17107573 17.80713304]
+training mode :  20 [18.89992928 19.03033539]
+training mode :  21 [21.31871943 19.62388238]
+training mode :  22 [15.37551798 17.76708397]
+training mode :  23 [16.07300116 18.22250881]
+training mode :  24 [21.11808293 19.52892135]
+training mode :  25 [20.24413663 19.36090305]
+training mode :  26 [15.90480303 18.06415118]
+training mode :  27 [23.04181656 20.02283697]
+training mode :  28 [20.34625783 19.41121148]
+training mode :  29 [19.47763912 19.33012168]
+training mode :  30 [21.17604524 19.47266133]
+training mode :  31 [22.99224148 20.26448585]
+training mode :  32 [20.18447666 19.65301919]
+training mode :  33 [16.97433299 18.28907786]
+training mode :  34 [23.03840192 20.19960726]
+training mode :  35 [16.87707682 18.18702636]
+training mode :  36 [22.01238047 19.99036152]
+training mode :  37 [15.05102631 17.95544908]
+training mode :  38 [17.64394264 18.68479602]
+training mode :  39 [22.29695094 19.91076   ]
+training mode :  40 [13.93404772 18.19821416]
+validation mode : 0 [15.40867389 17.77321752]
+validation mode : 1 [22.19500449 20.06560825]
+validation mode : 2 [22.39905158 20.00702348]
+validation mode : 3 [15.14274695 17.68666134]
+validation mode : 4 [21.70350629 19.78329408]
+validation mode : 5 [22.35991921 20.04673735]
+validation mode : 6 [18.85347845 19.03044463]
+validation mode : 7 [17.57076763 18.61564112]
+validation mode : 8 [21.74827251 19.86847371]
+validation mode : 9 [20.82109216 19.66940225]
+validation mode : 10 [15.11534719 17.92201106]
+validation mode : 11 [21.46267803 19.87230549]
+validation mode : 12 [22.46649865 20.01737479]
+validation mode : 13 [17.07847402 18.51058874]
+validation mode : 14 [15.56230022 18.02634477]
+validation mode : 15 [17.76433677 18.64580894]
+validation mode : 16 [19.19441638 19.04971833]
+validation mode : 17 [15.30000344 17.95953353]
+validation mode : 18 [20.65237884 19.24754669]
+validation mode : 19 [17.24803727 18.35170906]
+validation mode : 20 [19.2267984  18.93571766]
+validation mode : 21 [21.86633716 19.93785248]
+validation mode : 22 [15.06132851 17.70455648]
+validation mode : 23 [16.20586192 18.17613461]
+validation mode : 24 [18.94446606 19.028039  ]
+validation mode : 25 [20.85440698 19.65558399]
+validation mode : 26 [15.41194395 17.99208732]
+validation mode : 27 [18.96711006 19.03458232]
+validation mode : 28 [22.43730158 20.05168295]
+validation mode : 29 [17.43120964 18.49816528]
+epoch number :  1
+training mode :  0 [18.19953875 18.76210588]
+training mode :  1 [16.18153284 18.87705513]
+training mode :  2 [16.94702223 17.8817962 ]
+training mode :  3 [22.30375272 20.33567943]
+training mode :  4 [17.7523085  18.24920559]
+training mode :  5 [16.80806738 18.04681881]
+training mode :  6 [23.16486681 19.71548053]
+training mode :  7 [16.67266207 18.00675048]
+training mode :  8 [17.29513517 18.70996272]
+training mode :  9 [14.47027234 17.83798138]
+training mode :  10 [18.69302583 19.34120023]
+training mode :  11 [17.14944651 17.50021366]
+training mode :  12 [21.04780641 19.81206927]
+training mode :  13 [21.56109113 20.27922411]
+training mode :  14 [22.41511662 18.77309607]
+training mode :  15 [19.00406323 19.7827676 ]
+training mode :  16 [22.96422653 20.08294886]
+training mode :  17 [23.45941695 20.63767003]
+training mode :  18 [16.26579125 17.569994  ]
+training mode :  19 [13.93404772 18.19821416]
+training mode :  20 [15.73121758 18.0022175 ]
+training mode :  21 [22.95775395 18.82846438]
+training mode :  22 [18.89810661 19.04685559]
+training mode :  23 [15.15890771 17.69115269]
+training mode :  24 [20.85073404 18.94712594]
+training mode :  25 [16.88795654 17.93038966]
+training mode :  26 [17.19858002 18.81175288]
+training mode :  27 [19.4132167  19.12993704]
+training mode :  28 [22.51553596 20.00299871]
+training mode :  29 [18.22850719 18.63954731]
+training mode :  30 [21.08940765 20.4128943 ]
+training mode :  31 [19.65738108 18.93931953]
+training mode :  32 [19.53655045 18.26853348]
+training mode :  33 [15.21503358 17.55151589]
+training mode :  34 [19.32983407 19.52133357]
+training mode :  35 [22.93320336 20.84960235]
+training mode :  36 [23.82183322 20.39244212]
+training mode :  37 [23.57588639 19.53886515]
+training mode :  38 [21.0224121  19.41542491]
+training mode :  39 [16.85812483 18.08383708]
+training mode :  40 [20.44893289 18.10856738]
+validation mode : 30 [22.46339892 19.68547938]
+validation mode : 31 [21.10275885 19.55403185]
+validation mode : 32 [16.5421919  17.88429859]
+validation mode : 33 [22.60492218 19.39572463]
+validation mode : 34 [14.68245647 17.21447627]
+validation mode : 35 [16.46905126 17.98903929]
+validation mode : 36 [18.74154942 18.41885989]
+validation mode : 37 [22.28794045 19.29083133]
+validation mode : 38 [15.51319029 18.34973547]
+validation mode : 39 [17.92951936 18.36731878]
+validation mode : 40 [14.13939691 17.88128959]
+validation mode : 41 [18.62379046 19.01161999]
+validation mode : 42 [21.93602748 20.6043673 ]
+validation mode : 43 [22.76471773 20.54688469]
+validation mode : 44 [20.83546233 19.36716166]
+validation mode : 45 [15.54584074 18.29201105]
+validation mode : 46 [15.62138177 17.5120097 ]
+validation mode : 47 [20.39554817 18.75396915]
+validation mode : 48 [14.41015669 18.0019672 ]
+validation mode : 49 [18.43539036 18.801456  ]
+validation mode : 50 [22.22201741 19.09629285]
+validation mode : 51 [21.12868789 18.84772354]
+validation mode : 52 [20.75719688 18.92733707]
+validation mode : 53 [22.34841098 19.50001837]
+validation mode : 54 [14.3986641  17.96938696]
+validation mode : 55 [21.20947735 19.65685959]
+validation mode : 56 [16.9057893  18.57842896]
+validation mode : 57 [20.67198327 18.95307128]
+validation mode : 58 [18.65478752 19.42857146]
+validation mode : 59 [17.02882492 17.8051864 ]
+epoch number :  2
+training mode :  0 [19.89989811 19.9838818 ]
+training mode :  1 [20.02290976 18.94500955]
+training mode :  2 [16.71426258 18.02961123]
+training mode :  3 [17.48835337 18.62845365]
+training mode :  4 [14.81250659 18.18913065]
+training mode :  5 [21.84753531 19.63131953]
+training mode :  6 [23.74157231 19.7830896 ]
+training mode :  7 [21.13939915 19.74246891]
+training mode :  8 [15.45669658 17.41857204]
+training mode :  9 [15.67256375 18.47338747]
+training mode :  10 [22.14045594 19.01466878]
+training mode :  11 [22.15581698 19.89019525]
+training mode :  12 [23.51412482 20.1884368 ]
+training mode :  13 [17.17763242 17.85748531]
+training mode :  14 [17.00374693 18.00209737]
+training mode :  15 [19.23513299 18.91587999]
+training mode :  16 [19.02722003 18.33904782]
+training mode :  17 [20.66376559 19.89272828]
+training mode :  18 [21.75215177 19.02703834]
+training mode :  19 [18.97965016 18.32544608]
+training mode :  20 [22.71331873 20.09937822]
+training mode :  21 [21.91220207 20.62399024]
+training mode :  22 [19.86128868 19.21365032]
+training mode :  23 [19.04623458 19.00911593]
+training mode :  24 [15.52371423 17.0835299 ]
+training mode :  25 [14.62065075 18.36347481]
+training mode :  26 [21.0402945  20.01040256]
+training mode :  27 [15.68908818 18.73606743]
+training mode :  28 [17.40558361 17.98428847]
+training mode :  29 [20.44893289 18.10856738]
+training mode :  30 [16.44006048 16.90028779]
+training mode :  31 [22.13146762 19.96086122]
+training mode :  32 [16.4054098  17.81668605]
+training mode :  33 [16.80180436 18.36249209]
+training mode :  34 [21.90920988 19.09278648]
+training mode :  35 [17.80110855 17.60295475]
+training mode :  36 [15.75335407 17.6012877 ]
+training mode :  37 [23.0554062  20.44705853]
+training mode :  38 [21.84512672 20.75845398]
+training mode :  39 [19.97866704 18.99118435]
+training mode :  40 [22.86359728 19.96457877]
+validation mode : 60 [19.02947124 18.54019561]
+validation mode : 61 [17.21491428 17.35610261]
+validation mode : 62 [23.22511773 19.4995631 ]
+validation mode : 63 [19.84654718 18.96713505]
+validation mode : 64 [20.82044918 18.68189507]
+validation mode : 65 [21.31725253 20.31987554]
+validation mode : 66 [15.17092969 18.37796008]
+validation mode : 67 [14.55872083 17.76526002]
+validation mode : 68 [23.09351087 20.27493526]
+validation mode : 69 [14.80687719 17.59966603]
+validation mode : 70 [18.55997752 18.889608  ]
+validation mode : 71 [19.86057092 19.69986094]
+validation mode : 72 [14.1809531 18.2435634]
+validation mode : 73 [21.72153988 19.17492997]
+validation mode : 74 [18.41249134 19.20571038]
+validation mode : 75 [15.55820235 17.73172114]
+validation mode : 76 [16.58672777 18.37398414]
+validation mode : 77 [21.84996706 19.61821848]
+validation mode : 78 [15.69937435 18.93470486]
+validation mode : 79 [20.2147645  19.50805682]
+validation mode : 80 [14.85606453 17.59223384]
+validation mode : 81 [18.30526127 18.58963874]
+validation mode : 82 [21.88302596 19.77662439]
+validation mode : 83 [22.32374581 20.34635093]
+validation mode : 84 [22.02664361 19.18590499]
+validation mode : 85 [14.0851487  16.83850677]
+validation mode : 86 [17.5855455  19.02699119]
+validation mode : 87 [14.50737497 16.39701426]
+validation mode : 88 [23.18019833 20.62256831]
+validation mode : 89 [16.41125866 17.52414482]
+epoch number :  3
+training mode :  0 [13.99924378 17.55593339]
+training mode :  1 [15.74195309 17.50403269]
+training mode :  2 [17.68723275 18.63418455]
+training mode :  3 [21.68855534 20.12110197]
+training mode :  4 [13.68231226 17.74444491]
+training mode :  5 [17.10915915 17.92925761]
+training mode :  6 [21.994353   20.14338847]
+training mode :  7 [14.93096619 18.69226344]
+training mode :  8 [14.72282888 18.02972826]
+training mode :  9 [17.2629212  18.79494515]
+training mode :  10 [22.86359728 19.96457877]
+training mode :  11 [19.0766392  18.91980131]
+training mode :  12 [23.26232018 19.57429746]
+training mode :  13 [22.96179283 20.52072652]
+training mode :  14 [16.95831667 17.46505625]
+training mode :  15 [18.03797404 18.82607062]
+training mode :  16 [20.3989107  19.57844802]
+training mode :  17 [22.54592178 19.36629422]
+training mode :  18 [19.9067319 19.7451231]
+training mode :  19 [15.08601476 16.99729875]
+training mode :  20 [21.56100723 20.5051474 ]
+training mode :  21 [21.78991443 20.55232716]
+training mode :  22 [17.36118923 17.50593922]
+training mode :  23 [20.08742012 18.72966652]
+training mode :  24 [17.68234992 18.63353002]
+training mode :  25 [20.76272039 20.06158296]
+training mode :  26 [17.40484411 18.0113429 ]
+training mode :  27 [20.35815052 19.81065138]
+training mode :  28 [22.49284011 19.33092579]
+training mode :  29 [14.1466604  17.64856792]
+training mode :  30 [22.48756808 21.00662037]
+training mode :  31 [24.51525368 19.49581314]
+training mode :  32 [17.33536574 18.09082008]
+training mode :  33 [22.80645924 19.39008973]
+training mode :  34 [19.0218997 20.1487423]
+training mode :  35 [20.65834511 19.42261844]
+training mode :  36 [13.62719842 18.36522882]
+training mode :  37 [21.00441211 18.71090773]
+training mode :  38 [13.49968474 18.35245682]
+training mode :  39 [18.84914683 18.94807121]
+training mode :  40 [14.15275294 18.08211755]
+validation mode : 90 [15.02928328 17.8358205 ]
+validation mode : 91 [20.42047245 20.48281329]
+validation mode : 92 [21.84903038 20.51498697]
+validation mode : 93 [19.12193389 19.09451976]
+validation mode : 94 [19.09812949 19.43126754]
+validation mode : 95 [15.87794136 18.22938956]
+validation mode : 96 [16.40352411 18.06644783]
+validation mode : 97 [16.07996245 18.13993697]
+validation mode : 98 [20.070768   19.48684447]
+validation mode : 99 [14.57736585 18.00002435]
+validation mode : 100 [16.8681363 16.8105705]
+validation mode : 101 [20.3795277  18.82865227]
+validation mode : 102 [21.47068635 20.43688869]
+validation mode : 103 [21.19114785 19.73303584]
+validation mode : 104 [17.64382258 18.56356876]
+validation mode : 105 [17.93990565 18.83606051]
+validation mode : 106 [17.18673438 18.61919619]
+validation mode : 107 [17.20681778 17.76672979]
+validation mode : 108 [23.94386288 20.24386625]
+validation mode : 109 [17.46610857 19.56268683]
+validation mode : 110 [17.72218506 18.18781755]
+validation mode : 111 [14.56698655 18.44589661]
+validation mode : 112 [20.79421968 19.80398323]
+validation mode : 113 [22.93332848 20.59210667]
+validation mode : 114 [21.23948283 19.62013575]
+validation mode : 115 [15.55798208 18.67361987]
+validation mode : 116 [20.29065082 19.4870916 ]
+
+validation mode : 117 [21.37230036 18.27520021]
+validation mode : 118 [21.02577572 20.11051614]
+validation mode : 119 [20.78543278 19.46138282]
+epoch number :  4
+training mode :  0 [24.66562348 19.39366763]
+training mode :  1 [22.52958048 19.62865406]
+training mode :  2 [21.30037294 19.03832463]
+training mode :  3 [17.83016181 18.73813774]
+training mode :  4 [15.26167167 17.59480054]
+training mode :  5 [22.28962123 20.06261723]
+training mode :  6 [18.98681796 19.00180098]
+training mode :  7 [23.43893585 20.05752983]
+training mode :  8 [23.89293198 19.4578692 ]
+training mode :  9 [13.35970788 17.41615942]
+training mode :  10 [23.20152814 18.73964518]
+training mode :  11 [16.30913411 17.98971315]
+training mode :  12 [22.6838926  19.46386722]
+training mode :  13 [14.90434215 17.55624138]
+training mode :  14 [19.864382   19.03997295]
+training mode :  15 [14.82423078 18.2745767 ]
+training mode :  16 [17.74929652 18.70060782]
+training mode :  17 [21.89365548 19.26547347]
+training mode :  18 [19.08380818 19.37060526]
+training mode :  19 [12.82342295 18.27817904]
+training mode :  20 [19.04880077 19.76828988]
+training mode :  21 [18.75387765 18.90601593]
+training mode :  22 [23.62577849 19.70213188]
+training mode :  23 [15.34329595 18.27391481]
+training mode :  24 [17.20246843 18.64201148]
+training mode :  25 [17.78078157 17.88002787]
+training mode :  26 [25.10055246 19.94009072]
+training mode :  27 [19.94152277 19.34677348]
+training mode :  28 [15.78564229 17.08486445]
+training mode :  29 [21.48325883 19.09734823]
+training mode :  30 [15.42101407 18.01207846]
+training mode :  31 [14.15275294 18.08211755]
+training mode :  32 [21.67139475 20.0708634 ]
+training mode :  33 [21.83628579 19.30041235]
+training mode :  34 [24.84240315 19.65291142]
+training mode :  35 [21.53005601 19.97187791]
+training mode :  36 [16.47284941 18.31736939]
+training mode :  37 [16.13252179 18.29903878]
+training mode :  38 [18.8604114  17.95237509]
+training mode :  39 [12.82003637 17.74488909]
+training mode :  40 [23.46471285 20.81069246]
+validation mode : 120 [16.94368679 18.0381951 ]
+validation mode : 121 [21.35327238 19.52796265]
+validation mode : 122 [21.44571227 19.54407445]
+validation mode : 123 [14.74950073 18.23014511]
+validation mode : 124 [18.88854121 19.02228106]
+validation mode : 125 [16.70205338 17.16296206]
+validation mode : 126 [19.05542563 17.83680783]
+
+validation mode : 127 [16.92013452 18.25433482]
+validation mode : 128 [17.33684948 18.99019066]
+validation mode : 129 [17.36125015 18.70287596]
+validation mode : 130 [17.98729843 18.33573275]
+validation mode : 131 [20.37968956 20.51708893]
+validation mode : 132 [21.86512128 20.568252  ]
+validation mode : 133 [17.62415077 19.48568947]
+validation mode : 134 [20.37916492 19.90752319]
+validation mode : 135 [22.35748393 19.43982549]
+validation mode : 136 [20.71613888 19.27877892]
+validation mode : 137 [22.52120286 19.63590643]
+validation mode : 138 [14.68253217 17.31231395]
+validation mode : 139 [20.59290116 19.14052707]
+validation mode : 140 [14.98538648 18.00074117]
+validation mode : 141 [21.40579095 19.1221243 ]
+validation mode : 142 [22.12002436 19.21038726]
+validation mode : 143 [15.78912577 18.90931989]
+validation mode : 144 [20.20530519 19.57603938]
+validation mode : 145 [15.78765072 18.88934102]
+validation mode : 146 [17.73043286 17.95374556]
+validation mode : 147 [20.67672438 20.38315748]
+validation mode : 148 [17.57667074 18.9841621 ]
+validation mode : 149 [13.86017409 17.21107378]
+epoch number :  5
+training mode :  0 [19.69448512 19.43024249]
+training mode :  1 [17.5798406  17.79877221]
+training mode :  2 [18.2990895  18.23406409]
+training mode :  3 [21.40548757 19.55877418]
+training mode :  4 [21.27750438 19.52653216]
+training mode :  5 [20.2642083  19.23735994]
+training mode :  6 [22.29450614 20.41942214]
+training mode :  7 [23.46471285 20.81069246]
+training mode :  8 [18.05057603 18.44459916]
+training mode :  9 [18.94118942 18.62857106]
+training mode :  10 [22.57310798 20.19686386]
+training mode :  11 [23.96647768 20.14461631]
+training mode :  12 [15.71217187 17.22382358]
+training mode :  13 [16.00346401 17.36420206]
+training mode :  14 [16.55022701 18.23027259]
+training mode :  15 [16.44848501 18.08351589]
+training mode :  16 [15.57340946 18.37350829]
+training mode :  17 [22.93047147 20.00299982]
+training mode :  18 [22.10404862 19.6158432 ]
+training mode :  19 [20.01542598 20.13671159]
+training mode :  20 [24.91219507 20.33464522]
+training mode :  21 [14.65775102 17.88359391]
+training mode :  22 [20.83716967 20.15105786]
+training mode :  23 [15.53625749 18.35026975]
+training mode :  24 [22.28527253 19.38955939]
+training mode :  25 [21.01485086 19.15426372]
+training mode :  26 [17.30484732 17.73914056]
+training mode :  27 [22.39416247 20.10890047]
+training mode :  28 [14.41905558 18.71517641]
+training mode :  29 [15.7332887  18.18811267]
+training mode :  30 [22.4836646  20.13334548]
+training mode :  31 [20.14011234 20.75980184]
+training mode :  32 [17.55080137 18.99001512]
+training mode :  33 [15.64605788 17.65195576]
+training mode :  34 [19.23833743 19.59464475]
+training mode :  35 [15.25799951 18.26857184]
+training mode :  36 [16.08467269 18.01428158]
+training mode :  37 [14.69830931 17.25586602]
+training mode :  38 [19.99328299 18.84761259]
+training mode :  39 [15.65850074 17.79332952]
+training mode :  40 [18.79408882 18.57618419]
+validation mode : 150 [15.82714883 18.74049321]
+validation mode : 151 [16.00485702 17.93815947]
+validation mode : 152 [20.48890097 19.08305698]
+validation mode : 153 [18.04969636 18.9000872 ]
+validation mode : 154 [18.24695378 18.75947196]
+validation mode : 155 [14.51840153 17.24906885]
+validation mode : 156 [22.50911182 19.6004548 ]
+validation mode : 157 [20.87960912 19.45349217]
+validation mode : 158 [20.28578469 18.82739166]
+validation mode : 159 [14.39589633 17.09876197]
+validation mode : 160 [20.80916066 18.87871977]
+validation mode : 161 [17.98845673 19.245104  ]
+validation mode : 162 [14.92822622 17.3967372 ]
+validation mode : 163 [16.10892058 18.0192929 ]
+validation mode : 164 [14.9790708  17.62205985]
+validation mode : 165 [21.76686082 19.70564215]
+validation mode : 166 [23.59765262 19.92543216]
+validation mode : 167 [18.46820107 18.59488059]
+validation mode : 168 [23.0585317 19.9425603]
+validation mode : 169 [21.17154561 19.79631343]
+validation mode : 170 [17.31305837 19.21177524]
+validation mode : 171 [23.05719393 19.45137109]
+validation mode : 172 [22.74693758 20.01372236]
+validation mode : 173 [20.02989178 19.33609015]
+validation mode : 174 [16.24517309 17.46692397]
+validation mode : 175 [15.35527869 17.49364358]
+validation mode : 176 [22.99113828 18.67212131]
+validation mode : 177 [15.64478407 18.08557188]
+validation mode : 178 [21.36145764 20.09921588]
+validation mode : 179 [21.72493536 20.07057148]
+epoch number :  6
+training mode :  0 [18.79408882 18.57618419]
+training mode :  1 [20.36503662 19.62128855]
+training mode :  2 [22.71125949 19.28297552]
+training mode :  3 [21.51570162 19.3706126 ]
+training mode :  4 [14.8667778  18.20589443]
+training mode :  5 [21.968914   19.46416058]
+training mode :  6 [18.33409987 18.58063678]
+training mode :  7 [16.21212644 17.21910215]
+training mode :  8 [16.7474369  18.82080346]
+training mode :  9 [16.08833437 19.1918791 ]
+training mode :  10 [19.17249735 18.3283148 ]
+training mode :  11 [15.14780841 18.62266273]
+training mode :  12 [18.65613598 18.98784603]
+training mode :  13 [15.73942287 18.97136656]
+training mode :  14 [23.19789517 19.49109651]
+training mode :  15 [17.73491739 18.92134529]
+training mode :  16 [21.58439181 18.70976311]
+training mode :  17 [16.22863521 18.03450435]
+training mode :  18 [16.25327131 17.20197966]
+training mode :  19 [17.5555813  17.35297021]
+training mode :  20 [19.16832632 19.41075601]
+training mode :  21 [18.21604794 18.2590385 ]
+training mode :  22 [23.92096377 20.5636911 ]
+training mode :  23 [21.95625322 21.28274296]
+training mode :  24 [14.27543214 17.80317165]
+training mode :  25 [18.83996496 19.88673266]
+training mode :  26 [17.37675974 17.98006619]
+training mode :  27 [16.80832477 17.95032354]
+training mode :  28 [22.85336343 19.53668111]
+training mode :  29 [22.222443   20.66265791]
+training mode :  30 [17.93243355 18.69753571]
+training mode :  31 [23.43734166 21.1192445 ]
+training mode :  32 [19.80094614 20.15615579]
+training mode :  33 [15.28285837 18.66317408]
+training mode :  34 [23.30191867 20.49437829]
+training mode :  35 [20.75012461 20.92538983]
+training mode :  36 [12.62893683 17.3670046 ]
+training mode :  37 [13.68996816 18.08701449]
+training mode :  38 [22.88240277 20.82336462]
+training mode :  39 [18.53184742 19.15152833]
+training mode :  40 [18.1993233  19.57738395]
+validation mode : 180 [18.31940453 20.45770219]
+validation mode : 181 [13.87341539 17.84182337]
+validation mode : 182 [12.47281731 18.3119654 ]
+validation mode : 183 [24.96343262 20.55027093]
+validation mode : 184 [21.11480671 18.79945133]
+validation mode : 185 [18.17101024 19.0112496 ]
+validation mode : 186 [16.15311976 17.6567169 ]
+validation mode : 187 [15.1984484  17.65638824]
+validation mode : 188 [23.02612879 19.00760012]
+validation mode : 189 [20.33871367 19.35746087]
+validation mode : 190 [18.66256791 18.89720502]
+validation mode : 191 [17.55168187 19.77794705]
+validation mode : 192 [15.53009152 16.90496809]
+validation mode : 193 [23.36956705 21.04455013]
+validation mode : 194 [22.14964621 20.26886869]
+validation mode : 195 [19.41830701 19.42884626]
+validation mode : 196 [18.66770752 19.24099851]
+Traceback (most recent call last):
+  File "/linux/meghislain/ARIES-RL/main.py", line 51, in <module>
+    mean_reward, std_reward, time, DM, DM_PTV, d_meanPTV, d_meanOAR, d_meanAutour, D98_PTV, D80_PTV, D30_OAR, mini, D98_PTV_treat, D80_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM = evaluate_over_treatment_daily(model, env_eval, n_eval_episodes=parameters.n_test, epoch=i)
+  File "/linux/meghislain/ARIES-RL/ARIES/evaluation.py", line 234, in evaluate_over_treatment_daily
+    action, _states = model.predict(obs, deterministic=deterministic)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/dqn.py", line 256, in predict
+    action, state = self.policy.predict(observation, state, episode_start, deterministic)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/policies.py", line 366, in predict
+    actions = self._predict(obs_tensor, deterministic=deterministic)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/policies.py", line 184, in _predict
+    return self.q_net._predict(obs, deterministic=deterministic)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/policies.py", line 69, in _predict
+    q_values = self(observation)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/policies.py", line 66, in forward
+    return self.q_net(self.extract_features(obs, self.features_extractor))
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/policies.py", line 131, in extract_features
+    return features_extractor(preprocessed_obs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/ARIES/network.py", line 63, in forward
+    encoded_tensor_list.append(extractor(observations[key]))
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/ARIES/network.py", line 107, in forward
+    return self.linear(self.cnn(observations))
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/container.py", line 215, in forward
+    input = module(input)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 460, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 456, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt

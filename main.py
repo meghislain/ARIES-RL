@@ -19,9 +19,8 @@ wandb.init(project="2DBilly", entity="super_aries")
 
 # Instantiate the env
 name = parameters.date +"_DQ" +str(parameters.dq) +"_tarSize"+str(parameters.ts)+"_SL" + str(parameters.sl)#"12_06_8X8_carre3X3_MOVING_DOSE1_L75"#"32X32_CARRE5X5"#"MOVING_CARRE3X3_K3:3:3"
-num_col = 3 + (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 15 #random noise on tumor position
-num_row = 3 + (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 15 #random noise on tumor position
-
+num_col = (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 18 #random noise on tumor position
+num_row = (2*parameters.ts) + (2*parameters.ampl) + (2*parameters.gk) + 18 #random noise on tumor position
 if parameters.form == "square":
         number_pixel_to_touch = ((2*parameters.ts) + 1)**2 
 if parameters.form == "circle":
@@ -36,7 +35,7 @@ wandb.run.name = name
 env = TumorEnv(n_test_episode=parameters.n_test, n_train_episode=parameters.n_train, signal_length = parameters.sl, saving_path = saving_path, name = name, save_gif = parameters.savgif, target_size=parameters.ts, dose_quantity=parameters.dq, num_col=num_col, num_row=num_row, moving = parameters.mov, amplitude = parameters.ampl, form = parameters.form, frequency=parameters.freq, le=parameters.gk, inc = parameters.inc)
 env_eval = TumorEnv(mode=0, n_test_episode=parameters.n_test, n_train_episode=parameters.n_train, signal_length = parameters.sl, saving_path = saving_path, name = name, save_gif = parameters.savgif, target_size=parameters.ts, dose_quantity=parameters.dq, num_col=num_col, num_row=num_row, moving = parameters.mov, amplitude = parameters.ampl, form = parameters.form, frequency=parameters.freq, le=parameters.gk, inc = parameters.inc)
 
-policy_kwargs = dict(activation_fn=th.nn.ReLU, net_arch=[128, 64, 32], normalize_images=False, features_extractor_class=Custom_CombinedExtractor)
+policy_kwargs = dict(activation_fn=th.nn.ReLU, net_arch=[128, 64, 32], normalize_images=False)#, features_extractor_class=Custom_CombinedExtractor)
 #model = DQN.load(sav + "/Model/test_moving", env, device="cuda:1")
 model = DQN("MultiInputPolicy", env, verbose=0, learning_rate=parameters.lr, batch_size=16, device=parameters.dev, policy_kwargs=policy_kwargs, exploration_fraction=0.8, exploration_initial_eps=parameters.eps, exploration_final_eps=0.3, target_update_interval=parameters.sl)
 TIMESTEPS = parameters.sl*parameters.n_train

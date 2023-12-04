@@ -84,7 +84,7 @@ class OffPolicyAlgorithm(BaseAlgorithm):
         learning_rate: Union[float, Schedule],
         tumor: Union[GymEnv, str],
         buffer_size: int = 1_000_000,  # 1e6
-        learning_starts: int = 100,
+        learning_starts: int = 50000,
         batch_size: int = 256,
         tau: float = 0.005,
         gamma: float = 0.99,
@@ -425,10 +425,10 @@ class OffPolicyAlgorithm(BaseAlgorithm):
         self.logger.record("time/time_elapsed", int(time_elapsed), exclude="tensorboard")
         self.logger.record("time/total_timesteps", self.num_timesteps, exclude="tensorboard")
         if self.use_sde:
-            self.logger.record("train/std", (self.actor.get_std()).mean().item())
+           self.logger.record("train/std", (self.actor.get_std()).mean().item())
 
         if len(self.ep_success_buffer) > 0:
-            self.logger.record("rollout/success_rate", safe_mean(self.ep_success_buffer))
+           self.logger.record("rollout/success_rate", safe_mean(self.ep_success_buffer))
         # Pass the number of timesteps for tensorboard
         self.logger.dump(step=self.num_timesteps)
 

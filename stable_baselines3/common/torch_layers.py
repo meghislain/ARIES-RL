@@ -74,24 +74,29 @@ class NatureCNN(BaseFeaturesExtractor):
         super().__init__(observation_space, features_dim)
         # We assume CxHxW images (channels first)
         # Re-ordering will be done by pre-preprocessing or wrapper
-        assert is_image_space(observation_space, check_channels=False, normalized_image=normalized_image), (
-            "You should use NatureCNN "
-            f"only with images not with {observation_space}\n"
-            "(you are probably using `CnnPolicy` instead of `MlpPolicy` or `MultiInputPolicy`)\n"
-            "If you are using a custom environment,\n"
-            "please check it using our env checker:\n"
-            "https://stable-baselines3.readthedocs.io/en/master/common/env_checker.html.\n"
-            "If you are using `VecNormalize` or already normalized channel-first images "
-            "you should pass `normalize_images=False`: \n"
-            "https://stable-baselines3.readthedocs.io/en/master/guide/custom_env.html"
-        )
+        # assert is_image_space(observation_space, check_channels=False, normalized_image=normalized_image), (
+        #     "You should use NatureCNN "
+        #     f"only with images not with {observation_space}\n"
+        #     "(you are probably using `CnnPolicy` instead of `MlpPolicy` or `MultiInputPolicy`)\n"
+        #     "If you are using a custom environment,\n"
+        #     "please check it using our env checker:\n"
+        #     "https://stable-baselines3.readthedocs.io/en/master/common/env_checker.html.\n"
+        #     "If you are using `VecNormalize` or already normalized channel-first images "
+        #     "you should pass `normalize_images=False`: \n"
+        #     "https://stable-baselines3.readthedocs.io/en/master/guide/custom_env.html"
+        # )
+        kernel_size = 3
         n_input_channels = observation_space.shape[0]
         self.cnn = nn.Sequential(
-            nn.Conv2d(n_input_channels, 32, kernel_size=8, stride=4, padding=0),
+            nn.Conv2d(n_input_channels, 16, kernel_size=kernel_size, stride=1, padding=0),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=0),
+            nn.Conv2d(16, 32, kernel_size=kernel_size, stride=1, padding=0),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),
+            nn.Conv2d(32, 64, kernel_size=kernel_size, stride=1, padding=0),
+            nn.ReLU(),
+            nn.Conv2d(64, 128, kernel_size=kernel_size, stride=1, padding=0),
+            nn.ReLU(),
+            nn.Conv2d(128, 128, kernel_size=kernel_size, stride=1, padding=0),
             nn.ReLU(),
             nn.Flatten(),
         )
@@ -257,7 +262,7 @@ class CombinedExtractor(BaseFeaturesExtractor):
 
         total_concat_size = 0
         for key, subspace in observation_space.spaces.items():
-            if is_image_space(subspace, normalized_image=normalized_image):
+            if key == "doseMaps" or key == "incert": #if is_image_space(subspace, normalized_image=normalized_image):
                 extractors[key] = NatureCNN(subspace, features_dim=cnn_output_dim, normalized_image=normalized_image)
                 total_concat_size += cnn_output_dim
             else:

@@ -277,3 +277,16 @@ epoch number :  0
 epoch number :  1
 epoch number :  2
 epoch number :  3
+epoch number :  4
+epoch number :  5
+epoch number :  6
+Traceback (most recent call last):
+  File "/linux/meghislain/ARIES-RL/main.py", line 52, in <module>
+    wandb.log({"mean reward": mean_reward/(5*2*number_pixel_to_touch), "standard deviation of the reward": std_reward, "treatment time": time, "learning rate": model.learning_rate, "Difference of final DM": DM, "Difference on PTV": DM_PTV, "Dose moyenne PTV" : d_meanPTV, "Dose moyenne OAR":d_meanOAR, "Dose moyenne Autour":d_meanAutour, "D98 PTV":D98_PTV, "D30 OAR":D30_OAR, "minimum PTV" : mini, "D98_PTV_treat " : D98_PTV_treat, "D80_PTV_treat " : D80_PTV_treat, "D30_OAR_treat ": D30_OAR_treat, "mean_OAR_treat ": mean_OAR_treat})
+  File "/linux/meghislain/ARIES-RL/ARIES/evaluation.py", line 237, in evaluate_over_treatment_daily
+    obs, reward, done, info = env.step(action)
+  File "/linux/meghislain/ARIES-RL/ARIES/Env_incertitude.py", line 262, in step
+    self.DM_i_noisy = scipy.ndimage.shift(self.DMi_inRef_noisy, shift, order=1)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/scipy/ndimage/_interpolation.py", line 689, in shift
+    _nd_image.zoom_shift(filtered, None, shift, output, order, mode, cval,
+KeyboardInterrupt
