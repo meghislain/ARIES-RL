@@ -1,0 +1,159 @@
+{
+    "os": "Linux-6.2.0-37-generic-x86_64-with-glibc2.35",
+    "python": "3.9.18",
+    "heartbeatAt": "2023-12-04T11:29:55.716225",
+    "startedAt": "2023-12-04T11:29:54.586275",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--date",
+        "04_12_NEW"
+    ],
+    "state": "running",
+    "program": "/linux/meghislain/ARIES-RL/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/meghislain/ARIES-RL.git",
+        "commit": "5758347f52585b6522206b7f24e378cff13b3da6"
+    },
+    "email": "melanieghislain399@gmail.com",
+    "root": "/linux/meghislain/ARIES-RL",
+    "host": "waldo",
+    "username": "meghislain",
+    "executable": "/export/share/condaenv/STB3/bin/python",
+    "cpu_count": 10,
+    "cpu_count_logical": 20,
+    "cpu_freq": {
+        "current": 2.388650000000001,
+        "min": 1200.0,
+        "max": 4560.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3.765,
+            "min": 1200.0,
+            "max": 4700.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4600.0
+        },
+        {
+            "current": 1.199,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4600.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.699,
+            "min": 1200.0,
+            "max": 4700.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4700.0
+        },
+        {
+            "current": 1.201,
+            "min": 1200.0,
+            "max": 4600.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4600.0
+        },
+        {
+            "current": 1.199,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4700.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 3.7,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1.199,
+            "min": 1200.0,
+            "max": 4500.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 114.02810668945312,
+            "used": 81.46537399291992
+        }
+    },
+    "gpu": "Quadro RTX 6000",
+    "gpu_count": 3,
+    "gpu_devices": [
+        {
+            "name": "Quadro RTX 6000",
+            "memory_total": 25769803776
+        },
+        {
+            "name": "Quadro RTX 6000",
+            "memory_total": 25769803776
+        },
+        {
+            "name": "Quadro RTX 6000",
+            "memory_total": 25769803776
+        }
+    ],
+    "memory": {
+        "total": 125.47160339355469
+    }
+}

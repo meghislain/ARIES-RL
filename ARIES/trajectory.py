@@ -67,7 +67,7 @@ def create_noisy_signal(moving, SignalLength, nb) :
     vecteur = np.arange(1, number, 2)
     # for i in range(len(grid)):
     matrix = np.zeros((SignalLength, 2))
-    if moving == True :
+    if moving == 1 :
         for j in range(len(vecteur)):
             matrix[int(vecteur[j]*nb):int((vecteur[j]+1)*nb), 1] += np.random.randint(-1,2)
             matrix[int(vecteur[j]*nb):int((vecteur[j]+1)*nb), 0] += np.random.randint(-1,2)
@@ -90,6 +90,23 @@ def create_breathing_signals_reel(grid, amplitude, moving, signalLength):
         breath_signal = breath_sign.generate2DBreathingSignal()
         matrix[i] = np.ones((signalLength, 2))*grid[i] + breath_signal
     return matrix
+
+def create_breathing_signals_reel_3D(grid, amplitude, moving, signalLength):
+    matrix = np.zeros((len(grid), signalLength, 3))
+    breath_sign = SyntheticBreathingSignal(amplitude=2*amplitude, breathingPeriod=4, meanNoise=1/20,
+                 varianceNoise=0., samplingPeriod=parameters.sampperiod, simulationTime=signalLength*parameters.sampperiod, coeffMin = 0.10, coeffMax = 0.15, meanEvent = 0/60, meanEventApnea=0/120, name="Breathing Signal")
+    nul = np.zeros((signalLength,1))
+    if moving == 1:
+        for i in range(len(grid)):
+            breath_signal = breath_sign.generate2DBreathingSignal()
+            matrix[i] = np.ones((signalLength, 3))*grid[i] + np.concatenate((nul,breath_signal), axis=1)
+    elif moving == 0:
+        for i in range(len(grid)):
+            breath_signal = breath_sign.generate2DBreathingSignal()
+            add = np.ones((signalLength,2))*breath_signal[0]
+            matrix[i] = np.ones((signalLength, 3))*grid[i] + np.round(np.concatenate((nul,add), axis=1)) #remove the np.round and the condition on movement
+    return matrix
+
 def events(L,meanDurationEvents,varianceDurationEvents,Tend):
     timestamp = [0]
     U = np.random.uniform(0,1)

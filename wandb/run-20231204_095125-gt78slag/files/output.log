@@ -256,3 +256,49 @@ epoch number :  0
 training mode :  0 [16.62798806 18.37783764]
 training mode :  1 [22.9435995  20.17829537]
 /linux/meghislain/ARIES-RL/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+training mode :  2 [22.37994626 20.03659796]
+training mode :  3 [22.90750433 20.272429  ]
+Traceback (most recent call last):
+  File "/linux/meghislain/ARIES-RL/main.py", line 49, in <module>
+    model.learn(total_timesteps=TIMESTEPS)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/dqn.py", line 268, in learn
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/off_policy_algorithm.py", line 349, in learn
+    while self.num_timesteps < total_timesteps:
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/dqn.py", line 198, in train
+    # Avoid potential broadcast issue
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/dqn/policies.py", line 66, in forward
+    return self.q_net(self.extract_features(obs))
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/policies.py", line 131, in extract_features
+    def _get_constructor_parameters(self) -> Dict[str, Any]:
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/torch_layers.py", line 282, in forward
+    self.extractors = nn.ModuleDict(extractors)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/linux/meghislain/ARIES-RL/stable_baselines3/common/torch_layers.py", line 111, in forward
+    :param input_dim: Dimension of the input vector
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/container.py", line 215, in forward
+    input = module(input)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 460, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/export/share/condaenv/STB3/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 456, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt

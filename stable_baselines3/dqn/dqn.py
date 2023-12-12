@@ -79,19 +79,19 @@ class DQN(OffPolicyAlgorithm):
         env: Union[GymEnv, str],
         learning_rate: Union[float, Schedule] = 1e-4,
         buffer_size: int = 100_000,  # 1e6
-        learning_starts: int = 100,
+        learning_starts: int = 100, #10000
         batch_size: int = 32,
         tau: float = 1.0,
-        gamma: float = 0.99,
-        train_freq: Union[int, Tuple[int, str]] = 4,
+        gamma: float = 0.9,
+        train_freq: Union[int, Tuple[int, str]] = (4, "step"),
         gradient_steps: int = 1,
         replay_buffer_class: Optional[Type[ReplayBuffer]] = None,
         replay_buffer_kwargs: Optional[Dict[str, Any]] = None,
         optimize_memory_usage: bool = False,
         target_update_interval: int = 1000, #10000
-        exploration_fraction: float = 0.1,
-        exploration_initial_eps: float = 1.0,
-        exploration_final_eps: float = 0.05,
+        exploration_fraction: float = 0.9,
+        exploration_initial_eps: float = 0.9,
+        exploration_final_eps: float = 0.1,
         max_grad_norm: float = 10,
         stats_window_size: int = 0,
         tensorboard_log: Optional[str] = None,
@@ -180,7 +180,7 @@ class DQN(OffPolicyAlgorithm):
             polyak_update(self.batch_norm_stats, self.batch_norm_stats_target, 1.0)
 
         self.exploration_rate = self.exploration_schedule(self._current_progress_remaining)
-        self.logger.record("rollout/exploration_rate", self.exploration_rate)
+        #self.logger.record("rollout/exploration_rate", self.exploration_rate)
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
         # Switch to train mode (this affects batch norm / dropout)
@@ -223,8 +223,8 @@ class DQN(OffPolicyAlgorithm):
         # Increase update counter
         self._n_updates += gradient_steps
 
-        self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
-        self.logger.record("train/loss", np.mean(losses))
+        #self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
+        #self.logger.record("train/loss", np.mean(losses))
 
     def predict(
         self,

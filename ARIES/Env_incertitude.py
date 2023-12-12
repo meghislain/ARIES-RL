@@ -129,6 +129,7 @@ class TumorEnv(gym.Env):
         self.DM_i_noisy = np.zeros((num_row, num_col), dtype=np.float64)
         self.targetSize = target_size
         self.PTV = self.observeEnvAs2DImage_plain(pos = self.ref_position, dose_q=1, targetSize = self.targetSize, form = self.form)
+        self.number_pixel_to_touch = len(self.PTV[self.PTV==1])
         self.mask = self.observeEnvAs2DImage_plain(pos = self.ref_position, dose_q=1, targetSize = self.targetSize+self.zone, form = self.form)
         self.incert_image = self.mask
         self.n_test_episode = n_test_episode
@@ -211,7 +212,7 @@ class TumorEnv(gym.Env):
         self._tumor_position = self._signal_position[self.curTimeStep]
         #self._tumor_position #+ [random.choice(array_ran),random.choice(array_ran)]#+ np.random.normal(0,0,2)
         
-        if self.inc == True :
+        if self.inc == 1 :
             if self.curTimeStep % 10 == 0:
                 self.noisy_tumor_position = self._signal_position[self.curTimeStep]
                 self.noisy_pos[self.curTimeStep] = self.noisy_tumor_position
