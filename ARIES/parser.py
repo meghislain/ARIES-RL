@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--mov', "-mov", dest='mov', default=True, type=bool, help='Specify if Moving target or not')
+parser.add_argument('--mov', "-mov", dest='mov', default=1, type=int, help='Specify if Moving target or not')
 parser.add_argument('--ampl', "-ampl", dest='ampl', default=4, type=int, help='moving amplitude in pixels')
 parser.add_argument('--dq', "-dq", dest='dq', default=2, type=float, help='basic dose quantity')
 parser.add_argument('--date', "-date", dest='date', default="27_10", type=str, help='name of png images')
@@ -16,11 +16,12 @@ parser.add_argument('--eps', "-eps", dest='eps', default=0.7, type=float, help='
 parser.add_argument('--n_train', "-n_train", dest='n_train', default=40, type=int, help='number of trained episode/epoch')
 parser.add_argument('--form', "-form", dest='form', default="circle", type=str, help='target form')
 parser.add_argument('--dev', "-dev", dest='dev', default="cuda:1", type=str, help='device')
-parser.add_argument('--inc', "-inc", dest='inc', default=True, type=bool, help='incertitude')
+parser.add_argument('--inc', "-inc", dest='inc', default=1, type=int, help='incertitude')
 parser.add_argument('--fct', "-fct", dest='fct', default=1, type=float, help='factor of learning rate scheduler')
 parser.add_argument('--pdata', "-pdata", dest='pdata', default=1, type=float, help='pourcentage of dataset')
-parser.add_argument('--savgif', "-savgif", dest='savgif', default=True, type=bool, help='saving gif parameter')
+parser.add_argument('--savgif', "-savgif", dest='savgif', default=1, type=int, help='saving gif parameter')
 parser.add_argument('--pat', "-pat", dest='pat', default=5, type=int, help='patience parameter')
 parser.add_argument('--sampperiod', "-sampperiod", dest='sampperiod', default=0.02, type=float, help='sampling period')
+parser.add_argument('--dim', "-dim", dest='dim', default="2D", type=str, help='environment dimension')
 
 parameters = parser.parse_args()
