@@ -6,7 +6,7 @@ import sys
 import random
 import numpy as np
 from gym import spaces
-from skimage.morphology import disk, square, ellipse, rectangle, diamond, cube, octahedron, ball, octagon, star
+from skimage.morphology import disk, square, rectangle, cube, octahedron, ball, octagon, star
 #from skimage.morphology import square
 import random
 import wandb
@@ -14,9 +14,9 @@ import scipy
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, ImageMagickWriter
 from stable_baselines3.common.type_aliases import GymStepReturn
-from trajectory import create_signal_position, create_noisy_signal, create_breathing_signals, create_breathing_signals_reel, create_breathing_signals_reel_3D
+from ARIES.trajectory import create_signal_position, create_noisy_signal, create_breathing_signals, create_breathing_signals_reel, create_breathing_signals_reel_3D
 from scipy.interpolate import CubicSpline
-from dose_evaluation import compute_DVH, compute_DVH_OAR
+from ARIES.dose_evaluation import compute_DVH, compute_DVH_OAR
 from scipy.ndimage import gaussian_filter
 
 # Application d'un filtre gaussien
@@ -481,7 +481,7 @@ class TumorEnv(gym.Env):
             self.count_validation += 1
             self.n_validation += 1
         # self.noisy_perfect_DM = self.observeEnvAs2DImage(pos = self.noisy_tumor_position, dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
-        self.perfect_DM = self.observeEnvAs2DImage(pos = self._tumor_position, dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
+        self.perfect_DM = self.observeEnvAs2DImage(pos = np.round(self._tumor_position), dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
         sigma = 1.5
         # self.PTVag = self.observeEnvAs2DImage_plain(pos = self._tumor_position, dose_q=1, targetSize = self.targetSize+self.zone, form = self.form)
         # self.perfect_DM = gaussian_filter(self.perfect_DM, sigma)#*self.PTVag
@@ -522,7 +522,7 @@ class TumorEnv(gym.Env):
         #     self.doseMaps[2] = self.mask_shifted[self.energy]
         #     self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})
         if self.n_obs == 4 :
-            self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
+            self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]/4#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
             #self.doseMaps[0] = 5*(self.noisy_perfect_DM - self.DM_i)/self.SignalLength
             #self.doseMaps[1] = self.beam_pos
             #self.doseMaps[2] = self.mask_shifted

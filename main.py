@@ -5,10 +5,13 @@ from ARIES.evaluation import *
 from ARIES.network import Custom_CombinedExtractor, Custom_CNN
 from ARIES.learning_rate import linear_schedule, stair_schedule
 from ARIES.parser import parameters
+import pickle
 
 import os
-import wandb
 import logging
+
+import wandb
+os.environ["WANDB__SERVICE_WAIT"] = "300"
 
 import numpy as np
 sav = "/linux/meghislain/Results-RL/"
@@ -67,7 +70,7 @@ for i in range(parameters.n_epoch):
         dic = {"Accumulation Dose": Accum_DM, "actions": actions, "Beam position": beam_pos, 
                    "real tumor position": real_pos, "noisy tumor position": noisy_pos, "target size": parameters.ts, "form" : parameters.form, "reward" : rewards, "Signal Length" : parameters.sl,
                    "D98_PTV" : D98_PTV_treat, "D80_PTV" : D80_PTV_treat, "D30_OAR" : D30_OAR_treat, "d_meanOAR" : mean_OAR_treat, "DMi_inRef_noisy" : DMi_inRef_noisy}
-        if D98_PTV_treat >= 45:
+        if D98_PTV_treat >= 40:
               with open(saving_path + "/" + name + "/epoch" + str(i) + ".pickle", 'wb') as handle:
                      pickle.dump(dic, handle)
         wandb.log({"mean reward": mean_reward/(5*2*env.number_pixel_to_touch), "standard deviation of the reward": std_reward, "treatment time": time, 
