@@ -12,7 +12,7 @@ parser.add_argument('--lr', "-lr", dest='lr', default=0.0001, type=float, help='
 parser.add_argument('--gk', "-gk", dest='gk', default=1, type=int, help='gaussian kernel size')
 parser.add_argument('--n_test', "-n_test", dest='n_test', default=30, type=int, help='number of testing episode/epoch')
 parser.add_argument('--n_epoch', "-n_epoch", dest='n_epoch', default=260, type=int, help='number of epoch')
-parser.add_argument('--eps', "-eps", dest='eps', default=0.7, type=float, help='epsilon parameter')
+parser.add_argument('--eps', "-eps", dest='eps', default=0.9, type=float, help='epsilon parameter')
 parser.add_argument('--n_train', "-n_train", dest='n_train', default=40, type=int, help='number of trained episode/epoch')
 parser.add_argument('--form', "-form", dest='form', default="circle", type=str, help='target form')
 parser.add_argument('--dev', "-dev", dest='dev', default="cuda:1", type=str, help='device')
@@ -23,5 +23,5 @@ parser.add_argument('--savgif', "-savgif", dest='savgif', default=1, type=int, h
 parser.add_argument('--pat', "-pat", dest='pat', default=5, type=int, help='patience parameter')
 parser.add_argument('--sampperiod', "-sampperiod", dest='sampperiod', default=0.02, type=float, help='sampling period')
 parser.add_argument('--dim', "-dim", dest='dim', default="2D", type=str, help='environment dimension')
-
+parser.add_argument("--expl_rate", "-expl_rate", dest='expl_rate', default=1.0, type=float, help='exploration rate')
 parameters = parser.parse_args()

@@ -43,12 +43,12 @@ def evaluate(model, env, n_eval_episodes=100, deterministic=True):
         
         ref_position = [int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
         perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+2, form = env.form)
-        #perfectDM_PTV_inref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
+        perfectDM_PTV_inref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
         perfectDM_GTV_inref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize-1, form = env.form)
         d_OAR = env.DMi_inRef[perfectDM_inref_eval!=2]
         d_PTV = env.DMi_inRef[env.PTV==1]
         d_GTV = env.DMi_inRef[perfectDM_GTV_inref==2]
-        AutourPTV = env.mask - env.PTV
+        AutourPTV = perfectDM_inref_eval - perfectDM_PTV_inref
         d_Autour = env.DMi_inRef[AutourPTV!=0]
 
         d_meanOAR[i] = np.mean(d_OAR)
@@ -117,7 +117,7 @@ def evaluate_over_treatment(model, env, n_eval_episodes=30, deterministic=True, 
     #all_tumor_recovery = []
     ref_position = [int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
     perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+2, form = env.form)
-    #perfectDM_PTV_inref = env.observeEnvAs2DImage(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
+    perfectDM_PTV_inref = env.observeEnvAs2DImage(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
     perfectDM_GTV_inref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize-1, form = env.form)
     for i in range(n_eval_episodes):
         episode_rewards = []
@@ -137,7 +137,7 @@ def evaluate_over_treatment(model, env, n_eval_episodes=30, deterministic=True, 
         ref_position = [int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
         d_OAR = env.DMi_inRef[perfectDM_inref_eval!=2]
         d_PTV = env.DMi_inRef[env.PTV==1]
-        AutourPTV = env.mask - env.PTV
+        AutourPTV = perfectDM_inref_eval - perfectDM_PTV_inref
         d_Autour = env.DMi_inRef[AutourPTV!=0]
 
         d_meanOAR[i] = np.mean(d_OAR)
@@ -227,7 +227,9 @@ def evaluate_over_treatment_daily_3D(model, env, n_eval_episodes=30, determinist
     #all_tumor_recovery = []
     ref_position = [int(env.depth / 2), int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
     DMi_inRef_noisy = np.zeros(((env.depth, env.num_row, env.num_col)))
-    perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+env.zone, form = env.form)
+    perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+2, form = env.form)
+    perfectPTV_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
+    perfectDM_GTVinref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize-1, form = env.form)
     perfectDM_inref = env.observeEnvAs2DImage(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
     for i in range(n_eval_episodes):
         episode_rewards = []
@@ -254,7 +256,7 @@ def evaluate_over_treatment_daily_3D(model, env, n_eval_episodes=30, determinist
         #ref_position = [int(env.depth / 2), int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
         d_OAR = env.DMi_inRef[perfectDM_inref_eval!=2]
         d_PTV = env.DMi_inRef[env.PTV==1]
-        AutourPTV = env.mask - env.PTV
+        AutourPTV = perfectDM_inref_eval - perfectPTV_inref_eval
         d_Autour = env.DMi_inRef[AutourPTV!=0]
         DMi_inRef_noisy += env.DMi_inRef_noisy
 
@@ -274,14 +276,18 @@ def evaluate_over_treatment_daily_3D(model, env, n_eval_episodes=30, determinist
     perfect_q = n_eval_episodes*2
     #print("Mean reward:", mean_episode_reward, "Num episodes:", n_eval_episodes)
     d_PTV_all = Accum_DM[env.PTV==1] #[int(env.depth/2)]==1]
+    d_GTV_all = Accum_DM[perfectDM_GTVinref==2.0]
     d30_OAR_all = Accum_DM[perfectDM_inref_eval==0]
     D98_PTV_treat = computeDx(d_PTV_all, 98, perfect_q+50)
+    D98_GTV_treat = computeDx(d_GTV_all, 98, perfect_q+50)
     D80_PTV_treat = computeDx(d_PTV_all, 80, perfect_q+50)
     D30_PTV_treat = computeDx(d_PTV_all, 30, perfect_q+50)
     D30_OAR_treat = computeDx(d30_OAR_all, 30, perfect_q+50)
     mean_OAR_treat = np.mean(d30_OAR_all)
+    maxPTVs = np.max(Accum_DM[(perfectDM_inref_eval-perfectPTV_inref_eval)==2.0])
+    maxPTV = np.max(d_PTV_all)
 
-    return mean_episode_reward, std, np.mean(time), np.mean(DM), np.mean(DM_PTV), np.mean(d_meanPTV), np.mean(d_meanOAR), np.mean(d_meanAutour), np.mean(D98_PTV), np.mean(D80_PTV), np.mean(D30_OAR), np.mean(minim), D98_PTV_treat, D80_PTV_treat, D30_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM, actions, real_pos, noisy_pos, beam_pos, rewards, DMi_inRef_noisy
+    return mean_episode_reward, std, np.mean(time), np.mean(DM), np.mean(DM_PTV), np.mean(d_meanPTV), np.mean(d_meanOAR), np.mean(d_meanAutour), np.mean(D98_PTV), np.mean(D80_PTV), np.mean(D30_OAR), np.mean(minim), D98_PTV_treat, D80_PTV_treat, D30_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM, actions, real_pos, noisy_pos, beam_pos, rewards, DMi_inRef_noisy, D98_GTV_treat, maxPTVs, maxPTV
 
 
 def evaluate_over_treatment_daily(model, env, n_eval_episodes=30, deterministic=True, epoch=0):
@@ -314,7 +320,9 @@ def evaluate_over_treatment_daily(model, env, n_eval_episodes=30, deterministic=
     #all_tumor_recovery = []
     ref_position = [int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
     DMi_inRef_noisy = np.zeros(((env.num_row, env.num_col)))
-    perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+env.zone, form = env.form)
+    perfectDM_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize+2, form = env.form)
+    perfectPTV_inref_eval = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
+    perfectDM_GTVinref = env.observeEnvAs2DImage_plain(pos = ref_position, dose_q=2.0, targetSize = env.targetSize-1, form = env.form)
     perfectDM_inref = env.observeEnvAs2DImage(pos = ref_position, dose_q=2.0, targetSize = env.targetSize, form = env.form)
     for i in range(n_eval_episodes):
         episode_rewards = []
@@ -341,7 +349,7 @@ def evaluate_over_treatment_daily(model, env, n_eval_episodes=30, deterministic=
         ref_position = [int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER
         d_OAR = env.DMi_inRef[perfectDM_inref_eval!=2]
         d_PTV = env.DMi_inRef[env.PTV==1]
-        AutourPTV = env.mask - env.PTV
+        AutourPTV = perfectDM_inref_eval - perfectPTV_inref_eval
         d_Autour = env.DMi_inRef[AutourPTV!=0]
         DMi_inRef_noisy += env.DMi_inRef_noisy
 
@@ -360,15 +368,19 @@ def evaluate_over_treatment_daily(model, env, n_eval_episodes=30, deterministic=
     mean_episode_reward = np.mean(all_episode_rewards)
     perfect_q = n_eval_episodes*2
     #print("Mean reward:", mean_episode_reward, "Num episodes:", n_eval_episodes)
-    d_PTV_all = Accum_DM[env.PTV==1]
+    d_PTV_all = Accum_DM[env.PTV==1] #[int(env.depth/2)]==1]
+    d_GTV_all = Accum_DM[perfectDM_GTVinref==2.0]
     d30_OAR_all = Accum_DM[perfectDM_inref_eval==0]
     D98_PTV_treat = computeDx(d_PTV_all, 98, perfect_q+50)
+    D98_GTV_treat = computeDx(d_GTV_all, 98, perfect_q+50)
     D80_PTV_treat = computeDx(d_PTV_all, 80, perfect_q+50)
     D30_PTV_treat = computeDx(d_PTV_all, 30, perfect_q+50)
     D30_OAR_treat = computeDx(d30_OAR_all, 30, perfect_q+50)
     mean_OAR_treat = np.mean(d30_OAR_all)
+    maxPTVs = np.max(Accum_DM[(perfectDM_inref_eval-perfectPTV_inref_eval)==2.0])
+    maxPTV = np.max(d_PTV_all)
 
-    return mean_episode_reward, std, np.mean(time), np.mean(DM), np.mean(DM_PTV), np.mean(d_meanPTV), np.mean(d_meanOAR), np.mean(d_meanAutour), np.mean(D98_PTV), np.mean(D80_PTV), np.mean(D30_OAR), np.mean(minim), D98_PTV_treat, D80_PTV_treat, D30_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM, actions, real_pos, noisy_pos, beam_pos, rewards, DMi_inRef_noisy
+    return mean_episode_reward, std, np.mean(time), np.mean(DM), np.mean(DM_PTV), np.mean(d_meanPTV), np.mean(d_meanOAR), np.mean(d_meanAutour), np.mean(D98_PTV), np.mean(D80_PTV), np.mean(D30_OAR), np.mean(minim), D98_PTV_treat, D80_PTV_treat, D30_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM, actions, real_pos, noisy_pos, beam_pos, rewards, DMi_inRef_noisy, D98_GTV_treat, maxPTVs, maxPTV
 
 def plot_treatment_3D(env, n_eval_episodes, D98_PTV_treat, D80_PTV_treat, D30_OAR_treat, mean_OAR_treat, Accum_DM, epoch):
     ref_position = [int(env.depth / 2),int(env.num_row / 2),int(env.num_col / 2)] #AJOUTTTTER

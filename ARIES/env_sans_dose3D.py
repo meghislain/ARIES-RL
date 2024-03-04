@@ -63,7 +63,7 @@ class TumorEnv(gym.Env):
 
         self.save_gif = save_gif
         self.targetSize = target_size
-        self.n_obs = 4
+        self.n_obs = 3
         self.saving_path = saving_path
         self.name = name
         self.moving = moving
@@ -86,7 +86,7 @@ class TumorEnv(gym.Env):
                  print("New directory created to save the data: ", self.saving_path + "/" + self.name)
 
         #self.img_size = [2, num_row, num_col]
-        self.zone = 2 # zone considered around the tumor for the accumulated dosemap
+        self.zone = 1 # zone considered around the tumor for the accumulated dosemap
         self.discrete_actions = discrete_actions
         self.SignalLength=int(signal_length)
         self.dose_size = 1#(2*self.targetSize)+1
@@ -111,6 +111,17 @@ class TumorEnv(gym.Env):
             self.observation_space = spaces.Dict(
             spaces={
                 #"percentage_recovery": spaces.Box(0,1, [1,1], dtype=np.float64),
+                "doseMaps": spaces.Box(-1,1,[self.dose_size, num_row, num_col], dtype=np.float64),
+                "incert" : spaces.Box(-1,1,self.img_size, dtype=np.float64) #[1,num_row, num_col]
+            }
+            )  
+        if self.n_obs == 5 :
+            self.img_size = [2, num_row, num_col]
+            self.doseMaps = np.zeros([self.dose_size, num_row, num_col], dtype=np.float64)
+            self.incertitude = np.zeros(self.img_size, dtype=np.float64)
+            self.observation_space = spaces.Dict(
+            spaces={
+                "percentage_recovery": spaces.Box(0,1, [1,1], dtype=np.float64),
                 "doseMaps": spaces.Box(-1,1,[self.dose_size, num_row, num_col], dtype=np.float64),
                 "incert" : spaces.Box(-1,1,self.img_size, dtype=np.float64) #[1,num_row, num_col]
             }
@@ -158,10 +169,18 @@ class TumorEnv(gym.Env):
             self.doseMaps[1] = self.mask[self.energy]
             self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size), "beam position" : self._beam_position/self.num_col})#, "incert": self.mask.reshape([1,num_row, num_col])})
         if self.n_obs == 3 :
-            self.doseMaps[0] = 5*(self.perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
-            self.doseMaps[1] = self.beam_pos
-            self.doseMaps[2] = self.mask[self.energy]
+            self.doseMaps[0] = self.DM_i[self.energy]#5*(self.perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
+            self.doseMaps[2] = self.beam_pos
+            self.doseMaps[1] = self.mask[self.energy]
             self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})#, "incert": self.mask.reshape([1,num_row, num_col])})
+        if self.n_obs == 5 :
+            self.doseMaps[:] = self.DM_i[self.energy]#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#self.energy]#100*(self.perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
+            #self.doseMaps[1] = self.beam_pos
+            #self.doseMaps[2] = self.mask
+            self.incertitude[0] = self.mask[self.energy]
+            self.incertitude[1] = self.beam_pos
+            #self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})#, "incert": self.mask.reshape([1,num_row, num_col])})
+            self.observation.append({"percentage_recovery": np.array([self.energy]).reshape(1,1), "doseMaps": self.doseMaps.reshape([self.dose_size, self.num_row, self.num_col]), "incert": self.incertitude.reshape(self.img_size)})
         if self.n_obs == 4 :
             self.doseMaps[:] = self.DM_i[self.energy]#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#self.energy]#100*(self.perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
             #self.doseMaps[1] = self.beam_pos
@@ -170,9 +189,10 @@ class TumorEnv(gym.Env):
             self.incertitude[1] = self.beam_pos
             #self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})#, "incert": self.mask.reshape([1,num_row, num_col])})
             self.observation.append({"doseMaps": self.doseMaps.reshape([self.dose_size, self.num_row, self.num_col]), "incert": self.incertitude.reshape(self.img_size)})
+        
         if breathingSignal == "None":
 
-            grid = np.ones((self.n_train_episode+self.n_test_episode,3))*self.ref_position
+            grid = np.ones((self.n_train_episode+self.n_test_episode+150,3))*self.ref_position
             
             np.random.seed(0);np.random.shuffle(grid)
 
@@ -181,11 +201,11 @@ class TumorEnv(gym.Env):
             # z_position = np.ones((self.n_train_episode+self.n_test_episode,1))*self.energy
             # signal_matrice = np.concatenate((z_position, x_y_position), axis = 1)
             
-            if int(self.n_test_episode+self.n_train_episode)==len(grid): #pour après sélectionner la proportion de data utilisée
-                self.breathingSignal_training = signal_matrice[int(self.n_test_episode):]
-            else :
-                self.breathingSignal_training = signal_matrice[int(self.n_test_episode):int(self.n_test_episode+self.n_train_episode)]
+            #if int(self.n_test_episode+self.n_train_episode)==len(grid): #pour après sélectionner la proportion de data utilisée
+             #   self.breathingSignal_training = signal_matrice[int(self.n_test_episode):]
+            self.breathingSignal_training = signal_matrice[int(self.n_test_episode):int(self.n_test_episode+self.n_train_episode)]
             self.breathingSignal_validation = signal_matrice[:int(self.n_test_episode)]
+            self.breathingSignal_testing = signal_matrice[-150::]
             print(" training : ", self.breathingSignal_training[:,0,:], len(self.breathingSignal_training))
             print(" validation : ", self.breathingSignal_validation[:,0,:], len(self.breathingSignal_validation))
         
@@ -193,9 +213,11 @@ class TumorEnv(gym.Env):
         self._beam_dx= self.targetSize + 1 
         self._beam_dy= self.targetSize + 1
         self.count_validation = 0
+        self.count_testing = 0
         self.count_training = 0
         self.n_training = 0
         self.n_validation = 0
+        self.n_testing = 0
         self.count_episode = 0
         self.count_epoch = 0
         self.action = 0
@@ -216,7 +238,7 @@ class TumorEnv(gym.Env):
             if self.curTimeStep % 10 == 0:
                 self.noisy_tumor_position = self._signal_position[self.curTimeStep]
                 self.noisy_pos[self.curTimeStep] = self.noisy_tumor_position[1:]
-                self.mask_shifted = self.observeEnvAs2DImage_plain(pos = self.noisy_tumor_position, dose_q=1, targetSize = self.targetSize+self.zone-1, form = self.form)
+                self.mask_shifted = self.observeEnvAs2DImage_plain(pos = self.noisy_tumor_position, dose_q=1, targetSize = self.targetSize+self.zone, form = self.form)
                 self.incert_image = self.mask_shifted
                 #self.noisy_perfect_DM = self.observeEnvAs2DImage(pos = self.noisy_tumor_position, dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
                 #self.noisy_perfect_DM = gaussian_filter(self.noisy_perfect_DM, 1.5)
@@ -284,7 +306,7 @@ class TumorEnv(gym.Env):
             tir = True
             x_ = int(np.round(self._beam_position[0]))
             y_ = int(np.round(self._beam_position[1]))
-            if self.perfect_DM[self.energy,x_,y_]-self.DM_i[self.energy,x_,y_] > 0.2 :
+            if self.perfect_DM[self.energy,x_,y_]-self.DM_i[self.energy,x_,y_] > 0.0 :
                 reward_dose += 1
             else :
                 reward_dose -= 1
@@ -308,10 +330,12 @@ class TumorEnv(gym.Env):
 
             
         elif action == 5 : #5 étant ne rien faire, 6 7 8 9 10 11 12 etant les differentes energies du faisceau de protons
-            reward_dose -= 5*(1-(len(self.DMi_inRef[(self.PTV[self.energy] == 1) & (self.DMi_inRef[self.energy] >= 2)])/len(self.PTV[self.PTV[self.energy] == 1])))
+            reward_dose -= 3*(1-(len(self.DMi_inRef[(self.PTV[self.energy] == 1) & (self.DMi_inRef[self.energy] >= 2)])/len(self.PTV[self.PTV[self.energy] == 1])))
             if self.energy == (int(self.depth/2) - self.targetSize) :
                 self.energy = int(self.depth/2) + self.targetSize
+                #reward_dose -= 3
             else : 
+                #reward_dose -= 3*(1-(len(self.DMi_inRef[(self.PTV[self.energy] == 1) & (self.DMi_inRef[self.energy] >= 2)])/len(self.PTV[self.PTV[self.energy] == 1])))
                 self.energy = self.energy-1#max(0,self.energy-1) #int(int(self.depth/2) + 6 + self.targetSize - action)
         # elif action == 6 :
         #     self.energy = min(int(self.depth/2) + self.targetSize + 1, self.energy+1)#min(self.depth-1,self.energy+1)
@@ -333,7 +357,7 @@ class TumorEnv(gym.Env):
             
             # reward_dose -= np.sum(np.abs(self.perfect_DM[beam_int_x - self.le : beam_int_x + self.le +1 , beam_int_y - self.le : beam_int_y + self.le + 1]-self.DM_i[beam_int_x - self.le : beam_int_x + self.le +1 , beam_int_y - self.le : beam_int_y + self.le + 1])/(self.SignalLength))
         # zone_PTV_OAR = np.ones_like(self.autour_tumeur) - self.autour_tumeur
-        # zone_PTV = (self.perfect_DM-self.DM_i)*self.PTV_tumpos
+        #zone_PTV = (self.perfect_DM-self.DM_i)*self.PTV
         # zone_OAR = -(np.ones_like(self.perfect_DM)-self.perfect_DM_ag)*(self.perfect_DM-self.DM_i)
         # zone_autour = (self.DM_i)*self.autour_tumeur
         #if np.linalg.norm(self._beam_position - self._tumor_position[1:]) > self.targetSize + 1 :
@@ -347,7 +371,8 @@ class TumorEnv(gym.Env):
             #     reward_dose += 1
             # else :
             #     reward_dose -= 1
-        #reward_dose -= np.sum((np.abs(self.perfect_DM-self.DM_i))**2)/self.SignalLength
+        #reward_dose -= np.sum((np.abs(self.perfectDM_inref-self.DMi_inRef)*self.PTV)**2)/self.SignalLength
+        #print(reward_dose)
         # reward_dose -= 5*np.sum((np.abs(self.perfect_DM-self.DM_i)*zone_PTV_OAR)**2)/self.SignalLength
         # reward_dose -= 5*np.sum(rew)/self.SignalLength 
         #reward_dose -= 3*self.weighted_squared_abs_value(self.perfect_DM-self.DM_i,2)/self.SignalLength
@@ -396,12 +421,18 @@ class TumorEnv(gym.Env):
             self.doseMaps[0] = 5*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
             self.doseMaps[1] = self.incert_image[self.energy]
             self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size), "beam position" : self._beam_position.reshape([2,1])/self.num_col})#, "incert": self.mask.reshape([1,num_row, num_col])})
-        # if self.n_obs == 3 :
-        #     #self.doseMaps[0] = 5*(self.perfectDM_inref-self.DMi_inRef_noisy)/self.SignalLength
-        #     self.doseMaps[0] = 5*(self.noisy_perfect_DM[self.energy] - self.DM_i_noisy[self.energy])/self.SignalLength
-        #     self.doseMaps[1] = self.beam_pos
-        #     self.doseMaps[2] = self.incert_image[self.energy]
-        #     self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})
+        if self.n_obs == 3 :
+            #self.doseMaps[0] = 5*(self.perfectDM_inref-self.DMi_inRef_noisy)/self.SignalLength
+            self.doseMaps[0] = self.DMi_inRef_noisy[self.energy]/4#5*(self.noisy_perfect_DM[self.energy] - self.DM_i_noisy[self.energy])/self.SignalLength
+            self.doseMaps[2] = self.beam_pos
+            self.doseMaps[1] = self.incert_image[self.energy]
+            self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})
+        if self.n_obs == 5 :
+            self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]/4#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]/4#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
+            self.incertitude[0] = self.incert_image[self.energy]
+            self.incertitude[1] = self.beam_pos
+            #self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})#, "incert": self.mask.reshape([1,num_row, num_col])})
+            self.observation.append({"percentage_recovery": np.array([self.energy]).reshape(1,1), "doseMaps": self.doseMaps.reshape([self.dose_size, self.num_row, self.num_col]), "incert": self.incertitude.reshape(self.img_size)})
         if self.n_obs == 4 :
             self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]/4#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]/4#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
             self.incertitude[0] = self.incert_image[self.energy]
@@ -445,7 +476,7 @@ class TumorEnv(gym.Env):
             self.count_training += 1
             self.n_training += 1
             self.sum_reward = 0
-        else:
+        elif self.mode == 0:
             if int(self.n_validation % self.n_test_episode) == 0 :
                 np.random.shuffle(self.breathingSignal_validation)
             # if self.save_gif == 1 :
@@ -480,6 +511,19 @@ class TumorEnv(gym.Env):
             print('validation mode : ' + str(self.count_validation), self._tumor_position)
             self.count_validation += 1
             self.n_validation += 1
+        else :
+            self.sum_reward_b = 0
+            self.sum_reward_distance = 0
+            self.sum_reward = 0
+            self.positions = self.breathingSignal_testing
+            self._signal_position = self.positions[int(self.n_testing % 150)]
+            self._tumor_position = self._signal_position[self.curTimeStep]
+            self.noisy_signal_position = self._signal_position #+ create_noisy_signal(self.moving, self.SignalLength, self.frequency)
+            self.noisy_tumor_position = self.noisy_signal_position[self.curTimeStep]
+            # self.all_energies = np.zeros(self.SignalLength, dtype=int)
+            print('testing mode : ' + str(self.count_testing), self._tumor_position)
+            self.count_testing += 1
+            self.n_testing += 1
         # self.noisy_perfect_DM = self.observeEnvAs2DImage(pos = self.noisy_tumor_position, dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
         self.perfect_DM = self.observeEnvAs2DImage(pos = np.round(self._tumor_position), dose_q=self.dose_quantity, targetSize = self.targetSize, form = self.form)
         sigma = 1.5
@@ -509,18 +553,24 @@ class TumorEnv(gym.Env):
         self.beam_pos = np.zeros((self.num_row,self.num_col), dtype=np.float64)
         self.beam_pos[self._beam_position[0],self._beam_position[1]] = 1
         #self._last_ponctual_observation = self.perfect_DM - self.DM_i
-        self.mask_shifted = self.observeEnvAs2DImage_plain(pos = self._tumor_position, dose_q=1, targetSize = self.targetSize+self.zone-1, form = self.form)
+        self.mask_shifted = self.observeEnvAs2DImage_plain(pos = self._tumor_position, dose_q=1, targetSize = self.targetSize+self.zone, form = self.form)
         self.energy = int(self.depth/2) + self.targetSize
         if self.n_obs == 2 :
             self.doseMaps[0] = 5*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
             self.doseMaps[1] = self.mask_shifted[self.energy]
             self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size), "beam position" : self._beam_position.reshape([2,1])/self.num_col})#, "incert": self.mask.reshape([1,num_row, num_col])})
-        # if self.n_obs == 3 :
-        #     #self.doseMaps[0] = 5*(self.perfectDM_inref-self.DMi_inRef_noisy)/self.SignalLength
-        #     self.doseMaps[0] = 5*(self.noisy_perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
-        #     self.doseMaps[1] = self.beam_pos
-        #     self.doseMaps[2] = self.mask_shifted[self.energy]
-        #     self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})
+        if self.n_obs == 3 :
+            #self.doseMaps[0] = 5*(self.perfectDM_inref-self.DMi_inRef_noisy)/self.SignalLength
+            self.doseMaps[0] = self.DMi_inRef_noisy[self.energy]/4#5*(self.noisy_perfect_DM[self.energy] - self.DM_i[self.energy])/self.SignalLength
+            self.doseMaps[2] = self.beam_pos
+            self.doseMaps[1] = self.mask_shifted[self.energy]
+            self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})
+        if self.n_obs == 5 :
+            self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]/4#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]/4#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
+            self.incertitude[0] = self.incert_image[self.energy]
+            self.incertitude[1] = self.beam_pos
+            #self.observation.append({"doseMaps": self.doseMaps.reshape(self.img_size)})#, "incert": self.mask.reshape([1,num_row, num_col])})
+            self.observation.append({"percentage_recovery": np.array([self.energy]).reshape(1,1), "doseMaps": self.doseMaps.reshape([self.dose_size, self.num_row, self.num_col]), "incert": self.incertitude.reshape(self.img_size)})
         if self.n_obs == 4 :
             self.doseMaps[:] = self.DMi_inRef_noisy[self.energy]/4#self.ref_position[0]-self.targetSize:self.ref_position[0]+self.targetSize+1]#[self.energy]#100*(self.perfectDM_inref[self.energy]-self.DMi_inRef_noisy[self.energy])/self.SignalLength
             #self.doseMaps[0] = 5*(self.noisy_perfect_DM - self.DM_i)/self.SignalLength
@@ -677,7 +727,7 @@ class TumorEnv(gym.Env):
         if self.form == "cube":
             target = (dose_q/2)*cube(2*(targetSize+2) + 1) #square(2*self.targetSize + 1) #disk(self.targetSize) #[1, 1]#
         if self.form == "ball":
-            target = (dose_q/2)*ball(targetSize+2)
+            target = (dose_q)*ball(targetSize+2)
         if pos is not None:
             targetCenter = ref_position
         # else:

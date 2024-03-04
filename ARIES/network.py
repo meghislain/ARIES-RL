@@ -96,7 +96,6 @@ class Custom_CNN(BaseFeaturesExtractor):
             nn.ReLU(),
             nn.Flatten(),
         )
-
         # Compute shape by doing one forward pass
         with th.no_grad():
             n_flatten = self.cnn(th.as_tensor(observation_space.sample()[None]).float()).shape[1]
